@@ -9,17 +9,29 @@ import { Link } from 'react-router-dom';
 
 function SignUp() {
     const { handleChange, values, handleSubmit, errors } = useSignUpForm(validateInfoSignUp);
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [usernamereg, setUserName] = useState("");
-    const [usermailreg, setUserMail] = useState("");
-    const [userpasswordreg, setUserPassword] = useState("");
+    const [name, setUserName] = useState("");
+    const [email, setUserMail] = useState("");
+    const [password, setUserPassword] = useState("");
+    const address="";
+    const area="";
+    const addUser=(e)=>
+    { e.preventDefault();
+        const user={name, email, password, area, address};
+        console.log(user);
+        fetch("http://localhost:8081/user/add",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(user)
+        }).then(()=>{console.log("New User added")})
+
+    }
    
 
     return (
         <div className='container'>
             <div className='signup-content'>
                 <form action='/' method="POST" className='signupform' onSubmit={(e) => { 
-                    localStorage.setItem('usermail', usermailreg);
+                    addUser(e);
                     }}>
                     <h1>
                         Join us by filling the information below!
@@ -85,7 +97,7 @@ function SignUp() {
                             name='password2'
                             className='signupinput'
                             placeholder='Confirm password'
-                            value={values.upassword2}
+                            value={values.password2}
                             onChange={handleChange}></input>
                         {errors.password2 && <p>{errors.password2}</p>}
                     </div>
