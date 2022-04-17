@@ -8,6 +8,8 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import HeroSection from './components/HeroSection';
 import { createBrowserHistory } from 'history'
+import Home from './components/pages/Home';
+
 
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
         <Route exact path='/' component={Home_wo_Login}/>
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={SignUp}/>
+        <Route path='/home' component={Home}/>
         </Switch>
       </Router>
     </>
