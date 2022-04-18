@@ -6,7 +6,7 @@
 }
 
 .home,
-.unilist,
+.discover,
 .aboutus,
 .userprofile,
 .login {
@@ -17,7 +17,7 @@
   font-size: 3rem;
 }
 
-.unilist {
+.discover{
   color: #244121;
   font-size: 100px;
 }
