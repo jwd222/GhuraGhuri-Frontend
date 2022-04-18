@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import HeroSection from './components/HeroSection';
 import { createBrowserHistory } from 'history'
 import Home from './components/pages/Home';
+import Profile from './components/pages/Profile';
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={SignUp}/>
         <Route path='/home' component={Home}/>
+        <Route path='/profile' component={Profile}/>
         </Switch>
       </Router>
     </>

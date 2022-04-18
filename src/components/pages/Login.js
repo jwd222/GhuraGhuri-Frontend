@@ -26,6 +26,7 @@ const login = () => {
   fetch('http://localhost:8081/user/getByMail/mail?mail='+email, {
   }).then(response => response.json())
   .then(data => {
+    console.log(data);
     if(data[0].email===null){
       setLoginState("Not registered. Please Sign up.");
     }
@@ -34,6 +35,7 @@ const login = () => {
     }
     else if(data[0].password===password)
     {localStorage.setItem('currentID', data[0].id);
+    localStorage.setItem('email', data[0].email);
     history.push({
       pathname: '/home',
       data: data[0].id
