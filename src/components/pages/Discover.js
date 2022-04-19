@@ -257,7 +257,7 @@ function Discover() {
                 return (
                     <div className='cards__container_location'>
                         <div className='cards__wrapper' >
-                            <ul className='cards__item_loc'
+                            <ul className='cards__items_loc'
                                 onClick={() => {
                                     // localStorage.setItem('userEmailDiscover', values.Email);
                                 }}>

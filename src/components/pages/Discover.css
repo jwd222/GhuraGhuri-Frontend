@@ -8,40 +8,40 @@
   margin-top: 30px;
 }
 
-.searchbar{
- margin-left: 80px;
+.searchbar {
+  margin-left: 80px;
   margin-right: 40px;
   margin-bottom: 40px;
   align-items: center;
   margin-top: 120px;
   display: flex;
   float: left;
-height: 30px;
+  height: 30px;
 }
 
 
-.selectdiv{
+.selectdiv {
   margin-bottom: 40px;
   margin-top: 20px;
   width: 250px;
   display: flex;
   float: right;
-height: 30px;
-background-color: transparent;
+  height: 30px;
+  background-color: transparent;
 
 }
 
-.selecttype{
-  margin-bottom: 40px; 
+.selecttype {
+  margin-bottom: 40px;
   margin-top: 20px;
   width: 250px;
   display: flex;
   float: right;
-height: 30px;
+  height: 30px;
 }
 
 
-.searchbar input{
+.searchbar input {
   width: 300px;
   height: 30px;
   border-width: 2px;
@@ -52,7 +52,7 @@ height: 30px;
 .searchbar input::placeholder {
   color: #000;
   font-size: 15px;
-  
+
 }
 
 .searchbar input.active {
@@ -60,75 +60,71 @@ height: 30px;
   text-decoration-color: #000;
 }
 
-.fa-search{
+.fa-search {
   color: #000;
 }
 
 
-.sortbutton{
+.sortbutton {
   margin-bottom: 40px;
   margin-top: 20px;
   margin-left: 30px;
   display: flex;
   float: right;
-flex-flow: row;
-margin-right: 100px;
-width: 80px;
-height: 30px;
-border-radius: 20px;
-background: linear-gradient(
-  90deg,
-  rgb(36, 65, 33) 0%,
-  rgb(149, 201, 141) 100%
-);
-align-items: center;
-padding-left: 16px;
+  flex-flow: row;
+  margin-right: 100px;
+  width: 80px;
+  height: 30px;
+  border-radius: 20px;
+  background: linear-gradient(90deg,
+      rgb(36, 65, 33) 0%,
+      rgb(149, 201, 141) 100%);
+  align-items: center;
+  padding-left: 16px;
 }
 
-.searchbutton{
+.searchbutton {
 
   width: 30px;
   height: 30px;
   border-radius: 20px;
-  background: linear-gradient(
-    90deg,
-    rgb(36, 65, 33) 0%,
-    rgb(149, 201, 141) 100%
-  );
+  background: linear-gradient(90deg,
+      rgb(36, 65, 33) 0%,
+      rgb(149, 201, 141) 100%);
   align-items: center;
-  
-  }
 
-  .searchDivision{
-      color: #595959;
-      display: block;
-      padding-left: 10px;
-      border-radius: 2px;
-      height: 40px;
-      width: 50%;
-      border: none;
-    }
+}
 
-  .searchType{
-    color: #595959;
-    display: block;
-    padding-left: 10px;
-    border-radius: 2px;
-    height: 40px;
-    width: 50%;
-    border: none;
-  
-  }
+.searchDivision {
+  color: #595959;
+  display: block;
+  padding-left: 10px;
+  border-radius: 2px;
+  height: 40px;
+  width: 50%;
+  border: none;
+}
 
-  .select{
-    align-self: start;
-    width: 80%;
-    margin-bottom: 1rem;
-    margin-left: 70px;
-    background: transparent;
-    border-width: 1px;
-    
-  }
+.searchType {
+  color: #595959;
+  display: block;
+  padding-left: 10px;
+  border-radius: 2px;
+  height: 40px;
+  width: 50%;
+  border: none;
+
+}
+
+.select {
+  align-self: start;
+  width: 80%;
+  margin-bottom: 1rem;
+  margin-left: 70px;
+  background: transparent;
+  border-width: 1px;
+
+}
 
 .cards__container__location {
   display: flex;
@@ -137,6 +133,15 @@ padding-left: 16px;
   max-width: 300px;
   width: 90%;
   margin: 100px;
+}
+
+.cards__container__loc {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  max-width: 1120px;
+  width: 100%;
+  margin-left: 100px;
 }
 
 .cards__wrapper {
@@ -151,8 +156,8 @@ padding-left: 16px;
 }
 
 .cards__item {
- width: 340px;
- height: 340px;
+  width: 340px;
+  height: 340px;
   margin: 0 1rem;
   border-radius: 10px;
 }
