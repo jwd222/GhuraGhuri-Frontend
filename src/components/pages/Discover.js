@@ -1,8 +1,8 @@
-import '../../App.css';
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Link, useHistory, Route } from 'react-router-dom';
 import CardItem from '../CardItem'
 import './Discover.css'
+import { Button } from 'react-bootstrap';
 
 function Discover() {
     const [listOfLocation, setLocation] = useState([]);
@@ -53,7 +53,14 @@ function Discover() {
                 console.log(data);
             })
     };
-
+    const getByName = () => {
+        fetch('http://localhost:8081/location/discoverSearchName/name?name='+name, {
+        }).then(response => response.json())
+        .then(data => {
+            setLocation(data);
+            console.log(data);
+        })
+    };
     /*
     const HandleSearch = () => {
         Axios.post('http://localhost:3001/uniListSearchName', {
@@ -66,29 +73,21 @@ function Discover() {
 
 
     const HandleSearchAll = (name, division, type) => {
-        if (name == "" && (division == "" || division == "Choose Division") && (type == "" || type == "Choose Type")) {
-            getAllLocation();
-            //getAllLocationSortDown();
+        if (name === "" && (division === "" || division === "Choose Division") && (type === "" || type === "Choose Type")) {
+             getAllLocationSortDown();
         }
-        else if (name != "" && (division == "" || division == "Choose Division") && (type == "" || type == "Choose Type")) {
-            fetch('http://localhost:8081/location/discoverSearchName?name='+name, {
-                //Name: name
+        else if (name !== "" && (division === "" || division ==="Choose Division") && (type === "" || type === "Choose Type")) {
+            getByName();
+        }
+        else if (name === "" && (division !== "" && division !== "Choose Division") && (type === "" || type === "Choose Type")) {
+            fetch('http://localhost:8081/location/discoverSearchDivision/division?division='+division, {
             }).then(response => response.json())
             .then(data => {
                 setLocation(data);
                 console.log(data);
             })
         }
-        else if (name == "" && (division != "" && division != "Choose Division") && (type == "" || type == "Choose Type")) {
-            fetch('http://localhost:8081/location/discoverSearchDivision?division='+division, {
-                //Division: division
-            }).then(response => response.json())
-            .then(data => {
-                setLocation(data);
-                console.log(data);
-            })
-        }
-        else if (name != "" && (division != "" && division != "Choose Division") && (type == "" || type == "Choose Type")) {
+      /*  else if (name !== "" && (division !== "" && division !== "Choose Division") && (type === "" || type === "Choose Type")) {
             fetch('http://localhost:8081/location/discoverSearchNameDivision', {
                 Name: name,
                 Division: division
@@ -97,17 +96,16 @@ function Discover() {
                 setLocation(data);
                 console.log(data);
             })
-        }
-        else if (name == "" && (division == "" || division == "Choose Division") && (type != "" && type != "Choose Type")) {
-            fetch('http://localhost:8081/location/discoverSearchType', {
-                Type: type
+        }*/
+        else if (name === "" && (division === "" || division === "Choose Division") && (type !== "" && type !== "Choose Type")) {
+            fetch('http://localhost:8081/location/discoverSearchType/type?type='+type, {
             }).then(response => response.json())
             .then(data => {
                 setLocation(data);
                 console.log(data);
             })
         }
-        else if (name != "" && (division == "" || division == "Choose Division") && (type != "" && type != "Choose Type")) {
+      /*  else if (name !== "" && (division === "" || division === "Choose Division") && (type !== "" && type !== "Choose Type")) {
             fetch('http://localhost:8081/location/discoverSearchNameType', {
                 Name: name,
                 Type: type
@@ -116,18 +114,16 @@ function Discover() {
                 setLocation(data);
                 console.log(data);
             })
-        }
-        else if (name == "" && (division != "" && division != "Choose Division") && (type != "" && type != "Choose Type")) {
-            fetch('http://localhost:8081/location/discoverSearchDivisionType', {
-                Division: division,
-                Type: type
+        }*/
+        else if (name === "" && (division !== "" && division !== "Choose Division") && (type !== "" && type !== "Choose Type")) {
+            fetch('http://localhost:8081/location/discoverSearchDivisionType/divisiontype?division='+division+'&type='+type, {
             }).then(response => response.json())
             .then(data => {
                 setLocation(data);
                 console.log(data);
             })
         }
-        else if (name != "" && (division != "" && division != "Choose Division") && (type != "" && type != "Choose Type")) {
+       /* else if (name !== "" && (division !== "" && division !== "Choose Division") && (type !== "" && type !== "Choose Type")) {
             fetch('http://localhost:8081/location/discoverSearchNameDivisionType', {
                 Name: name,
                 Division: division,
@@ -137,14 +133,14 @@ function Discover() {
                 setLocation(data);
                 console.log(data);
             })
-        }
+        }*/
     }
 
     const HandleSearchAllUp = (name, division, type) => {
-        if (name == "" && (division == "" || division == "Choose Division") && (type == "" || type == "Choose Type")) {
+        if (name === "" && (division === "" || division === "Choose Division") && (type === "" || type === "Choose Type")) {
             getAllLocationSortUp();
         }
-        else if (name != "" && (division == "" || division == "Choose Division") && (type == "" || type == "Choose Type")) {
+       /* else if (name !== "" && (division === "" || division === "Choose Division") && (type === "" || type === "Choose Type")) {
             fetch('http://localhost:8081/location/discoverSearchNameUp', {
                 Name: name
             }).then(response => response.json())
@@ -152,17 +148,16 @@ function Discover() {
                 setLocation(data);
                 console.log(data);
             })
-        }
-        else if (name == "" && (division != "" && division != "Choose Division") && (type == "" || type == "Choose Type")) {
-            fetch('http://localhost:8081/location/discoverSearchDivisionUp', {
-                Division: division
+        }*/
+        else if (name === "" && (division !== "" && division !== "Choose Division") && (type === "" || type === "Choose Type")) {
+            fetch('http://localhost:8081/location/discoverSearchDivisionUp/division?division='+division, {
             }).then(response => response.json())
             .then(data => {
                 setLocation(data);
                 console.log(data);
             })
         }
-        else if (name != "" && (division != "" && division != "Choose Division") && (type == "" || type == "Choose Type")) {
+       /* else if (name !== "" && (division !== "" && division !== "Choose Division") && (type === "" || type ==="Choose Type")) {
             fetch('http://localhost:8081/location/discoverSearchNameDivisionUp', {
                 Name: name,
                 Division: division
@@ -171,17 +166,16 @@ function Discover() {
                 setLocation(data);
                 console.log(data);
             })
-        }
-        else if (name == "" && (division == "" || division == "Choose Division") && (type != "" && type != "Choose Type")) {
-            fetch('http://localhost:8081/location/discoverSearchTypeUp', {
-                Type: type
+        }*/
+        else if (name === "" && (division === "" || division === "Choose Division") && (type !== "" && type !== "Choose Type")) {
+            fetch('http://localhost:8081/location/discoverSearchTypeUp/type?type='+type, {
             }).then(response => response.json())
             .then(data => {
                 setLocation(data);
                 console.log(data);
             })
         }
-        else if (name != "" && (division == "" || division == "Choose Division") && (type != "" && type != "Choose Type")) {
+      /*  else if (name !== "" && (division === "" || division === "Choose Division") && (type !== "" && type !== "Choose Type")) {
             fetch('http://localhost:8081/location/discoverSearchNameTypeUp', {
                 Name: name,
                 Type: type
@@ -190,18 +184,16 @@ function Discover() {
                 setLocation(data);
                 console.log(data);
             })
-        }
-        else if (name == "" && (division != "" && division != "Choose Division") && (type != "" && type != "Choose Type")) {
-            fetch('http://localhost:8081/location/discoverSearchDivisionTypeUp', {
-                Division: division,
-                Type: type
+        }*/
+        else if (name === "" && (division !== "" && division !== "Choose Division") && (type !== "" && type !== "Choose Type")) {
+            fetch('http://localhost:8081/location/discoverSearchDivisionTypeUp/divisiontype?division='+division+'&type='+type, {
             }).then(response => response.json())
             .then(data => {
                 setLocation(data);
                 console.log(data);
             })
         }
-        else if (name != "" && (division != "" && division != "Choose Division") && (type != "" && type != "Choose Type")) {
+      /*  else if (name !== "" && (division !== "" && division !== "Choose Division") && (type !== "" && type !== "Choose Type")) {
             fetch('http://localhost:8081/location/discoverSearchNameDivisionTypeUp', {
                 Name: name,
                 Division: division,
@@ -211,7 +203,7 @@ function Discover() {
                 setLocation(data);
                 console.log(data);
             })
-        }
+        }*/
     }
 
 
@@ -226,17 +218,17 @@ function Discover() {
 
             <div className='searchbar' >
                 <form action='/' method="GET" className='searchform' onSubmit={(e) => {
-                    handleSubmit(e);
-
+                        handleSubmit(e);
                 }}>
-                    <input type="text"
+                   <input type="text"
                         placeholder="Search"
                         onChange={e => {
+                            e.preventDefault();
                             const selectedState = e.target.value;
                             setName(selectedState);
                             HandleSearchAll(selectedState, division, type);
-                        }}
-                    />
+                        }}/>
+                   
                 </form>
             </div>
             <div className='sortbutton' onClick={HandleClick}>
@@ -246,6 +238,7 @@ function Discover() {
             <div className='selectdiv'>
                 <select className="searchDivision"
                     onChange={(e) => {
+                        e.preventDefault();
                         const selectedState = e.target.value;
                         setLocation(selectedState);
                         HandleSearchAll(name, selectedState, type);
@@ -263,30 +256,31 @@ function Discover() {
 
             <div className='selecttype'>
                 <select className="searchType"
-                    onChange={(e) => {
+                   onChange={(e) => {
+                       e.preventDefault();
                         const selectedState = e.target.value;
                         setType(selectedState);
                         HandleSearchAll(name, division, selectedState);
                     }}>
                     <option value='Choose Type'>Choose Type</option>
-                    <option value='Historic'>Historic Place</option>
+                    <option value='Historic'>Historic</option>
                     <option value='Beach'>Beach</option>
                     <option value='Mountain'>Mountain</option>
                     <option value='Amusement'>Amusement</option>
                 </select>
             </div>
 
-            {listOfLocation.map((values, key) => {
+            {Object.entries(listOfLocation).map(([values, key]) => {
                 return (
                     <div className='cards__container_location'>
                         <div className='cards__wrapper' >
                             <ul className='cards__item'
                                 onClick={() => {
-                                    localStorage.setItem('userEmailDiscover', values.Email);
+                                   // localStorage.setItem('userEmailDiscover', values.Email);
                                 }}>
                                 <CardItem
-                                    src={values.imageURL}
-                                    text={values.name}
+                                    src={key.imageURL}
+                                    text={key.name}
                                     label='Location_preview_card'
                                     path='/locationprofilescreen'
                                 />

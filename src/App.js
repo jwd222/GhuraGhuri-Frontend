@@ -14,6 +14,8 @@ import Profile from './components/pages/Profile';
 import Myplans from './components/pages/Myplans';
 import Addplan from './components/pages/Addplan';
 import Plandetails from './components/pages/Plandetails';
+import Map from './components/pages/Map';
+import AllArticle from './components/pages/AllArticle';
 
 function App() {
   const history = createBrowserHistory();
@@ -27,10 +29,12 @@ function App() {
         <Route path='/signup' component={SignUp}/>
         <Route path='/home' component={Home}/>
         <Route path='/discover' component={Discover}/>
+        <Route path='/map' component={Map}/>
         <Route path='/profile' component={Profile}/>
         <Route path='/myplans' component={Myplans}/>
         <Route path='/addplan' component={Addplan}/>
         <Route path='/plandetails' component={Plandetails}/>
+        <Route path='/allarticles' component={AllArticle}/>
         </Switch>
       </Router>
     </>

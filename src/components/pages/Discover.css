@@ -77,8 +77,8 @@
   border-radius: 20px;
   background: linear-gradient(
     90deg,
-    rgb(39, 176, 255) 0%,
-    rgb(0, 232, 236) 100%
+    rgb(36, 65, 33) 0%,
+    rgb(149, 201, 141) 100%
   );
   align-items: center;
   padding-left: 16px;
@@ -91,8 +91,8 @@
     border-radius: 20px;
     background: linear-gradient(
       90deg,
-      rgb(39, 176, 255) 0%,
-      rgb(0, 232, 236) 100%
+      rgb(36, 65, 33) 0%,
+      rgb(149, 201, 141) 100%
     );
     align-items: center;
     
