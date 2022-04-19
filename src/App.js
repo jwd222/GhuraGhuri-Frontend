@@ -5,15 +5,17 @@ import Home_wo_Login from './components/pages/Home_wo_Login';
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import Discover from './components/pages/Discover';
-import Profile from './components/pages/Profile';
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import HeroSection from './components/HeroSection';
 import { createBrowserHistory } from 'history'
 import Home from './components/pages/Home';
+import Profile from './components/pages/Profile';
+import Myplans from './components/pages/Myplans';
+import Addplan from './components/pages/Addplan';
+import Plandetails from './components/pages/Plandetails';
 import Map from './components/pages/Map';
-
-
+import AllArticle from './components/pages/AllArticle';
 
 function App() {
   const history = createBrowserHistory();
@@ -29,6 +31,10 @@ function App() {
         <Route path='/discover' component={Discover}/>
         <Route path='/map' component={Map}/>
         <Route path='/profile' component={Profile}/>
+        <Route path='/myplans' component={Myplans}/>
+        <Route path='/addplan' component={Addplan}/>
+        <Route path='/plandetails' component={Plandetails}/>
+        <Route path='/allarticles' component={AllArticle}/>
         </Switch>
       </Router>
     </>

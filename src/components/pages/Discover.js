@@ -1,4 +1,3 @@
-import '../../App.css';
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Link, useHistory, Route } from 'react-router-dom';
 import CardItem from '../CardItem'
