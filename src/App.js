@@ -12,6 +12,7 @@ import HeroSection from './components/HeroSection';
 import { createBrowserHistory } from 'history'
 import Home from './components/pages/Home';
 import Map from './components/pages/Map';
+import AllArticle from './components/pages/AllArticle';
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path='/discover' component={Discover}/>
         <Route path='/map' component={Map}/>
         <Route path='/profile' component={Profile}/>
+        <Route path='/allarticles' component={AllArticle}/>
         </Switch>
       </Router>
     </>

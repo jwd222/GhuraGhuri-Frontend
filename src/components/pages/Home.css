@@ -114,6 +114,29 @@ body.active-modal {
     color: #fff;
     font-size: 1rem;
   }
+
+  .morebtn {
+    width: 30%;
+    height: 30px;
+    margin-top: 20px;
+    margin-left: 35%;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    background: #adc9a9;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .morebtn:hover {
+    cursor: pointer;
+    background: #fff ;
+    color: #242424;
+    outline:rgb(36, 65, 33);
+    border:rgb(36, 65, 33);
+    transition: all 0.3s ease-out;
+  }
   
   .postbtn:hover {
     cursor: pointer;
