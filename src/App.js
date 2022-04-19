@@ -26,11 +26,8 @@ function App() {
         <Route path='/signup' component={SignUp}/>
         <Route path='/home' component={Home}/>
         <Route path='/discover' component={Discover}/>
-<<<<<<< HEAD
         <Route path='/map' component={Map}/>
-=======
         <Route path='/profile' component={Profile}/>
->>>>>>> e06e74cf4610b70d740cc7a75b9ac2284ec68434
         </Switch>
       </Router>
     </>
