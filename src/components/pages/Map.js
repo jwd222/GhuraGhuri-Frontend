@@ -4,10 +4,22 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Room, Star } from "@material-ui/icons";
 import "./Map.css"
 import axios from "axios";
+import {format} from "timeago.js"
 
 function Map(){
     const [pins, setPins] = useState([]);
-    const [showPopup, setShowPopup] = React.useState(true);
+    const [showPopup, setShowPopup] = useState(true);
+    const [currentPlaceId, setCurrentPlaceId] = useState(null);
+
+    const handleMarkerClick = (id) => {
+        setCurrentPlaceId(id);
+      };
+
+    const [viewport, setViewport] = useState({
+        latitude:  23.777,
+        longitude: 90.399,
+        zoom: 14
+    });  
 
     useEffect(() => {
         const getPins = async () => {
@@ -30,8 +42,7 @@ function Map(){
                 zoom: 14
             }}            
             mapStyle="mapbox://styles/mapbox/streets-v9"
-            mapboxAccessToken='pk.eyJ1IjoiZmFyaWFiaW50ZWthZGVyIiwiYSI6ImNsMjVwMWdyNDA2YmozYm8wZDk1MDkyb2sifQ.MNgRzV6q5svRlvzeziFZsQ'
-            
+            mapboxAccessToken='pk.eyJ1IjoiZmFyaWFiaW50ZWthZGVyIiwiYSI6ImNsMjVwMWdyNDA2YmozYm8wZDk1MDkyb2sifQ.MNgRzV6q5svRlvzeziFZsQ'   
         >
             {pins.map(p=>(
             <React.Fragment key={p.id}>
@@ -41,13 +52,19 @@ function Map(){
                     offsetLeft={-20}
                     offsetTop={-10}    
                 >
-                    <Room style={{color:"slateblue"}}/>
+                <Room 
+                    style={{color:"slateblue"}}
+                    onClick={()=>{}}                
+                    />
                 </Marker>
+                {/* {p.id === setCurrentPlaceId && ( */}
                 <Popup 
                     latitude={p.lat} 
                     longitude={p.lng}
+                    closeButton={true}
+                    closeOnClick={false}
                     anchor="left"
-                    onClose={() => setShowPopup(false)}>
+                >
                     <div classsName="card">
                         <label>Place</label>
                             <h4 className="place">{p.title}</h4>
@@ -62,11 +79,15 @@ function Map(){
                             <Star className="star"/>
                         </div>
                         <label>Information</label>
-                            <p className="username">
-                                Created by <b>{p.username}</b>
-                            </p>
+                            <span>
+                                <p className="username">Created by <b>{p.username}</b></p>
+                            </span>
+                            <span>
+                                <p>{format(p.date)}</p>
+                            </span>
                     </div>
                 </Popup>
+                {/* )} */}
             </React.Fragment>
             ))}
         </ReactMapGL>
