@@ -8,18 +8,45 @@ import {format} from "timeago.js"
 
 function Map(){
     const [pins, setPins] = useState([]);
-    const [showPopup, setShowPopup] = useState(true);
-    const [currentPlaceId, setCurrentPlaceId] = useState(null);
-
-    const handleMarkerClick = (id) => {
-        setCurrentPlaceId(id);
-      };
-
-    const [viewport, setViewport] = useState({
+    const [currentPlaceId, setCurrentPlaceId] = useState();
+    const [newPlace, setNewPlace] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [desc, setDesc] = useState(null);
+    const [star, setStar] = useState(0);
+    const [viewState, setViewState] = useState({
         latitude:  23.777,
         longitude: 90.399,
         zoom: 14
-    });  
+    });
+    const handleMarkerClick = (id, lat, lng) => {
+        setCurrentPlaceId(id);
+        setViewState({ ...viewState, latitude: lat, longitude: lng });
+    };
+    const handleAddClick = (e) => {
+        setNewPlace({
+            lat: e.lngLat.lat,
+            lng: e.lngLat.lng,
+        });
+    };
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newPin = {
+          title,
+          desc,
+          rating: star,
+          lat: newPlace.lat,
+          long: newPlace.long,
+        };
+    
+        try {
+          const res = await axios.post("/pins", newPin);
+          setPins([...pins, res.data]);
+          setNewPlace(null);
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
     useEffect(() => {
         const getPins = async () => {
@@ -36,13 +63,12 @@ function Map(){
     return(
         <div style={{width: "100%", height: "100vh"}}>
         <ReactMapGL
-            initialViewState={{
-                latitude:  23.777,
-                longitude: 90.399,
-                zoom: 14
-            }}            
+            {...viewState}
+            onMove={evt => setViewState(evt.viewState)}
+            transitionDuration="200"
             mapStyle="mapbox://styles/mapbox/streets-v9"
             mapboxAccessToken='pk.eyJ1IjoiZmFyaWFiaW50ZWthZGVyIiwiYSI6ImNsMjVwMWdyNDA2YmozYm8wZDk1MDkyb2sifQ.MNgRzV6q5svRlvzeziFZsQ'   
+            onDblClick={handleAddClick}
         >
             {pins.map(p=>(
             <React.Fragment key={p.id}>
@@ -53,17 +79,18 @@ function Map(){
                     offsetTop={-10}    
                 >
                 <Room 
-                    style={{color:"slateblue"}}
-                    onClick={()=>{}}                
+                    style={{color:"slateblue", cursor:"pointer"}}
+                    onClick={()=>handleMarkerClick(p.id, p.lat, p.lng)}                
                     />
                 </Marker>
-                {/* {p.id === setCurrentPlaceId && ( */}
+                {p.id === currentPlaceId && (
                 <Popup 
                     latitude={p.lat} 
                     longitude={p.lng}
                     closeButton={true}
                     closeOnClick={false}
                     anchor="left"
+                    onClose={setCurrentPlaceId(null)}
                 >
                     <div classsName="card">
                         <label>Place</label>
@@ -87,7 +114,44 @@ function Map(){
                             </span>
                     </div>
                 </Popup>
-                {/* )} */}
+                )}
+                {newPlace && (
+                <Popup 
+                    latitude={newPlace.lat} 
+                    longitude={newPlace.lng}
+                    closeButton={true}
+                    closeOnClick={false}
+                    onClose={() => setNewPlace(null)}
+                    anchor="left"
+                >
+                <div>
+                <form>
+                  <label>Title</label>
+                  <input
+                    placeholder="Enter a title"
+                    autoFocus
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <label>Description</label>
+                  <textarea
+                    placeholder="Say us something about this place."
+                    onChange={(e) => setDesc(e.target.value)}
+                  />
+                  <label>Rating</label>
+                  <select onChange={(e) => setStar(e.target.value)}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <button type="submit" className="submitButton">
+                    Add Pin
+                  </button>
+                </form>
+              </div>
+              </Popup>
+                )}
             </React.Fragment>
             ))}
         </ReactMapGL>
