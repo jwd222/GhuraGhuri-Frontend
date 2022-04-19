@@ -4,43 +4,52 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Room, Star } from "@material-ui/icons";
 import "./Map.css"
 import axios from "axios";
-import {format} from "timeago.js"
 
 function Map(){
     const [pins, setPins] = useState([]);
-    const [currentPlaceId, setCurrentPlaceId] = useState();
+    const [currentPlaceId, setCurrentPlaceId] = useState(null);
     const [newPlace, setNewPlace] = useState(null);
+    const [username, setUsername] = useState(null);
     const [title, setTitle] = useState(null);
     const [desc, setDesc] = useState(null);
     const [star, setStar] = useState(0);
     const [viewState, setViewState] = useState({
         latitude:  23.777,
         longitude: 90.399,
-        zoom: 14
+        zoom: 12
     });
+    const [settings, setsettings] = useState({
+        touchZoom: false,
+        touchRotate: false,
+        keyboard: false,
+        doubleClickZoom: false
+        });
     const handleMarkerClick = (id, lat, lng) => {
         setCurrentPlaceId(id);
-        setViewState({ ...viewState, latitude: lat, longitude: lng });
+        setViewState({ zoom: 15, latitude: lat, longitude: lng });
     };
     const handleAddClick = (e) => {
+        const latitude = e.lngLat.lat
+        const longitude = e.lngLat.lng
         setNewPlace({
-            lat: e.lngLat.lat,
-            lng: e.lngLat.lng,
+            lat: latitude,
+            lng: longitude,
         });
-    };
+        console.log(e)
+    }
     
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newPin = {
-          title,
-          desc,
-          rating: star,
-          lat: newPlace.lat,
-          long: newPlace.long,
+            title,
+            desc,
+            rating: star,
+            lat: newPlace.lat,
+            lng: newPlace.lng,
         };
     
         try {
-          const res = await axios.post("/pins", newPin);
+          const res = await axios.post("http://localhost:8081/pins/addPin", newPin);
           setPins([...pins, res.data]);
           setNewPlace(null);
         } catch (err) {
@@ -64,10 +73,11 @@ function Map(){
         <div style={{width: "100%", height: "100vh"}}>
         <ReactMapGL
             {...viewState}
+            {...settings}
             onMove={evt => setViewState(evt.viewState)}
             transitionDuration="200"
             mapStyle="mapbox://styles/mapbox/streets-v9"
-            mapboxAccessToken='pk.eyJ1IjoiZmFyaWFiaW50ZWthZGVyIiwiYSI6ImNsMjVwMWdyNDA2YmozYm8wZDk1MDkyb2sifQ.MNgRzV6q5svRlvzeziFZsQ'   
+            mapboxAccessToken='pk.eyJ1IjoiZmFyaWFiaW50ZWthZGVyIiwiYSI6ImNsMjVwMWdyNDA2YmozYm8wZDk1MDkyb2sifQ.MNgRzV6q5svRlvzeziFZsQ'
             onDblClick={handleAddClick}
         >
             {pins.map(p=>(
@@ -90,9 +100,11 @@ function Map(){
                     closeButton={true}
                     closeOnClick={false}
                     anchor="left"
-                    onClose={setCurrentPlaceId(null)}
+                    onClose={(e)=>{
+                        console.log(e);
+                    }}
                 >
-                    <div classsName="card">
+                    <div className="card">
                         <label>Place</label>
                             <h4 className="place">{p.title}</h4>
                         <label>Review</label>
@@ -109,23 +121,24 @@ function Map(){
                             <span>
                                 <p className="username">Created by <b>{p.username}</b></p>
                             </span>
-                            <span>
-                                <p>{format(p.date)}</p>
-                            </span>
                     </div>
                 </Popup>
                 )}
-                {newPlace && (
+            </React.Fragment>
+            ))}
+            {newPlace && (
                 <Popup 
                     latitude={newPlace.lat} 
                     longitude={newPlace.lng}
                     closeButton={true}
                     closeOnClick={false}
-                    onClose={() => setNewPlace(null)}
+                    onClose={(e)=>{
+                        console.log(e);
+                    }}
                     anchor="left"
                 >
                 <div>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <label>Title</label>
                   <input
                     placeholder="Enter a title"
@@ -152,8 +165,6 @@ function Map(){
               </div>
               </Popup>
                 )}
-            </React.Fragment>
-            ))}
         </ReactMapGL>
         </div>
     )
