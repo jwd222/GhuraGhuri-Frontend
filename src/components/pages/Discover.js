@@ -210,7 +210,6 @@ function Discover() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        HandleSearchAll(name, division, type);
     }
 
     return (
@@ -220,16 +219,17 @@ function Discover() {
 
             <div className='searchbar' >
                 <form action='/' method="GET" className='searchform' onSubmit={(e) => {
-                     const selectedState = e.target.value;
-                     setName(selectedState);
-                     handleSubmit(e);
-                     
+                        handleSubmit(e);
                 }}>
-                    <input type="text"
+                   <input type="text"
                         placeholder="Search"
-                       
-                    />
-                    <input type="submit" />
+                        onChange={e => {
+                            e.preventDefault();
+                            const selectedState = e.target.value;
+                            setName(selectedState);
+                            HandleSearchAll(selectedState, division, type);
+                        }}/>
+                   
                 </form>
             </div>
             <div className='sortbutton' onClick={HandleClick}>
@@ -239,6 +239,7 @@ function Discover() {
             <div className='selectdiv'>
                 <select className="searchDivision"
                     onChange={(e) => {
+                        e.preventDefault();
                         const selectedState = e.target.value;
                         setLocation(selectedState);
                         HandleSearchAll(name, selectedState, type);
@@ -257,6 +258,7 @@ function Discover() {
             <div className='selecttype'>
                 <select className="searchType"
                    onChange={(e) => {
+                       e.preventDefault();
                         const selectedState = e.target.value;
                         setType(selectedState);
                         HandleSearchAll(name, division, selectedState);
