@@ -12,8 +12,8 @@ import { createBrowserHistory } from 'history'
 import Home from './components/pages/Home';
 import Profile from './components/pages/Profile';
 import Myplans from './components/pages/Myplans';
-
-
+import Addplan from './components/pages/Addplan';
+import Plandetails from './components/pages/Plandetails';
 
 function App() {
   const history = createBrowserHistory();
@@ -26,8 +26,11 @@ function App() {
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={SignUp}/>
         <Route path='/home' component={Home}/>
+        <Route path='/discover' component={Discover}/>
         <Route path='/profile' component={Profile}/>
         <Route path='/myplans' component={Myplans}/>
+        <Route path='/addplan' component={Addplan}/>
+        <Route path='/plandetails' component={Plandetails}/>
         </Switch>
       </Router>
     </>
