@@ -5,6 +5,7 @@ import Home_wo_Login from './components/pages/Home_wo_Login';
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import Discover from './components/pages/Discover';
+import Profile from './components/pages/Profile';
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import HeroSection from './components/HeroSection';
