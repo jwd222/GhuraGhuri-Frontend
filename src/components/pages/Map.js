@@ -12,7 +12,7 @@ function Map(){
     useEffect(() => {
         const getPins = async () => {
           try {
-            const allPins = await axios.get("https://localhost:8081/pins/getAllPins");
+            const allPins = await axios.get("http://localhost:8081/pins/getAllPins");
             setPins(allPins.data);
           } catch (err) {
             console.log(err);
@@ -34,18 +34,18 @@ function Map(){
             
         >
             {pins.map(p=>(
-            <>
+            <React.Fragment key={p.id}>
                 <Marker
-                    latitude={23.777}
-                    longitude={90.399}
+                    latitude={p.lat}
+                    longitude={p.lng}
                     offsetLeft={-20}
                     offsetTop={-10}    
                 >
                     <Room style={{color:"slateblue"}}/>
                 </Marker>
                 <Popup 
-                    longitude={p.lat} 
-                    latitude={p.lng}
+                    latitude={p.lat} 
+                    longitude={p.lng}
                     anchor="left"
                     onClose={() => setShowPopup(false)}>
                     <div classsName="card">
@@ -62,12 +62,12 @@ function Map(){
                             <Star className="star"/>
                         </div>
                         <label>Information</label>
-                        <span className="username">
-                            Created by <b>{p.username}</b>
-                        </span>
+                            <p className="username">
+                                Created by <b>{p.username}</b>
+                            </p>
                     </div>
                 </Popup>
-            </>
+            </React.Fragment>
             ))}
         </ReactMapGL>
         </div>
