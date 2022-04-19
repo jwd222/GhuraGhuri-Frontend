@@ -3,7 +3,6 @@ import '../../App.js';
 import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import Axios from "axios";
 import { Link } from 'react-router-dom';
 
 function Profile(props) {
@@ -15,10 +14,10 @@ function Profile(props) {
   const [area, setArea] = useState("");
 
   const updateUser=(e)=>
-    { e.preventDefault();
+    { //e.preventDefault();
         const user={name, email, password, area, address};
         console.log(user);
-        fetch("http://localhost:8081/user/update/mail?mail=" + email, {
+        fetch("http://localhost:8081/user/update", {
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(user)
