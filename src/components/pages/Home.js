@@ -46,7 +46,8 @@ function Home() {
           <div className="leftside">
             <span ><Link to={{ pathname: "/myplans" }}>My Plans</Link></span><br /><br />
             <span ><Link to={{ pathname: "/myarticles" }}>My Posts</Link></span><br /><br />
-            <span ><Link to={{ pathname: "/profile" }}>Profile</Link></span>
+            <span ><Link to={{ pathname: "/profile" }}>Profile</Link></span><br /><br />
+            <span ><Link to={{ pathname: "/map" }}>Add Place</Link></span>
             <span > <button onClick={toggleModal} className="btn-modal">
               Log Out
             </button></span>
