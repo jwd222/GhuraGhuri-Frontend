@@ -7,13 +7,12 @@ import axios from "axios";
 
 function Map(){
     const [pins, setPins] = useState([]);
-
-
     const [showPopup, setShowPopup] = React.useState(true);
+
     useEffect(() => {
         const getPins = async () => {
           try {
-            const allPins = await axios.get("/pins");
+            const allPins = await axios.get("http://localhost:8081/pins/getAllPins");
             setPins(allPins.data);
           } catch (err) {
             console.log(err);
@@ -35,25 +34,25 @@ function Map(){
             
         >
             {pins.map(p=>(
-            <>
+            <React.Fragment key={p.id}>
                 <Marker
-                    latitude={23.777}
-                    longitude={90.399}
+                    latitude={p.lat}
+                    longitude={p.lng}
                     offsetLeft={-20}
                     offsetTop={-10}    
                 >
                     <Room style={{color:"slateblue"}}/>
                 </Marker>
                 <Popup 
-                    longitude={90.399} 
-                    latitude={23.777}
+                    latitude={p.lat} 
+                    longitude={p.lng}
                     anchor="left"
                     onClose={() => setShowPopup(false)}>
                     <div classsName="card">
                         <label>Place</label>
-                            <h4 className="place">Some place</h4>
+                            <h4 className="place">{p.title}</h4>
                         <label>Review</label>
-                            <p className="desc">some review</p>
+                            <p className="desc">{p.desc}</p>
                         <label>Rating</label>
                         <div className="star">
                             <Star className="star"/>
@@ -63,12 +62,12 @@ function Map(){
                             <Star className="star"/>
                         </div>
                         <label>Information</label>
-                        <span className="username">
-                            Created by <b>Jawad</b>
-                        </span>
+                            <p className="username">
+                                Created by <b>{p.username}</b>
+                            </p>
                     </div>
                 </Popup>
-            </>
+            </React.Fragment>
             ))}
         </ReactMapGL>
         </div>
