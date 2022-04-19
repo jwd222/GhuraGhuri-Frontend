@@ -11,6 +11,7 @@ import HeroSection from './components/HeroSection';
 import { createBrowserHistory } from 'history'
 import Home from './components/pages/Home';
 import Profile from './components/pages/Profile';
+import Myplans from './components/pages/Myplans';
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/signup' component={SignUp}/>
         <Route path='/home' component={Home}/>
         <Route path='/profile' component={Profile}/>
+        <Route path='/myplans' component={Myplans}/>
         </Switch>
       </Router>
     </>

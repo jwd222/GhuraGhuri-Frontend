@@ -14,25 +14,9 @@ function Profile(props) {
   const [address, setAddress] = useState("");
   const [area, setArea] = useState("");
 
-  const updateUser=(e)=>
-    { e.preventDefault();
-        const user={name, email, password, area, address};
-        console.log(user);
-        fetch("http://localhost:8081/user/update/mail?mail=" + email, {
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(user)
-        }).then(()=>{console.log("User updated")})
-
-    }
-
   useEffect(() => {
     getUserInfo();
   }, []);
-
-  const handleSubmit = e => {
-    e.preventDefault();
-  }
 
   const getUserInfo = () => {
     fetch('http://localhost:8081/user/getByMail/mail?mail=' + email, {
@@ -45,6 +29,19 @@ function Profile(props) {
         setArea(data[0].area);
       })
   };
+
+  const updateUser=(e)=>
+    { e.preventDefault();
+        const user={name, email, password, area, address};
+        console.log(user);
+        fetch("http://localhost:8081/user/update/mail?mail=" + email, {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(user)
+        }).then(()=>{console.log("User updated")})
+
+    }
+
 
   return (
     <div class="row">
@@ -59,15 +56,11 @@ function Profile(props) {
       <div class="column">
         <div class="profilecontainer">
           <img src="http://media.idownloadblog.com/wp-content/uploads/2012/04/Phil-Schiller-headshot-e1362692403868.jpg" height="150" width="150" />
-          <Form onSubmit={(e) => {
-            handleSubmit(e);
-            updateUser();
+          <Form action='/' method="POST" onSubmit={(e) => {
+            updateUser(e);
           }}>
 
           <Form.Group controlId="name">
-            <Row>
-              <p>{name}</p>
-            </Row>
             <Row>
               <Form.Control style={{ fontSize: 14, fontFamily: "Times New Roman", height: "30px", width: "700px", backgroundColor: "#E7E2E2" }}
                 type="text"
@@ -80,9 +73,6 @@ function Profile(props) {
 
           <Form.Group controlId="address">
             <Row>
-              <p>{address}</p>
-            </Row>
-            <Row>
               <Form.Control style={{ fontSize: 14, fontFamily: "Times New Roman", height: "30px", width: "700px", backgroundColor: "#E7E2E2" }}
                 type="text"
                 placeholder="Enter Address"
@@ -92,12 +82,13 @@ function Profile(props) {
             </Row>
           </Form.Group>
 
-          <Row style={{ marginLeft: "150px" }}>
-            <Button type="submit" style={{ height: "36px", width: "400px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2" }}>
+          <Row>
+            <Button type="submit">
               Update
             </Button>
           </Row>
-        </Form>
+          
+          </Form>
 
         </div>
       </div>
