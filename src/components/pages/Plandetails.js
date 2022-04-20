@@ -1,57 +1,51 @@
-import "./Profile.css";
+import "./Plandetails.css";
 import '../../App.js';
 import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-function Profile(props) {
+function Plandetails(props) {
   const email = localStorage.getItem('email');
+  const id =  localStorage.getItem('planId');
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [area, setArea] = useState("");
+  const [description, setDescription] = useState("");
 
-  const updateUser = (e) => { //e.preventDefault();
-    const user = { name, email, password, area, address };
-    console.log(user);
-    fetch("http://localhost:8081/user/update", {
+  const updatePlan = (e) => { //e.preventDefault();
+    const plan = {id, name, email, description };
+    console.log(plan);
+    fetch("http://localhost:8081/plan/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user)
-    }).then(() => { console.log("User updated") })
-
+      body: JSON.stringify(plan)
+    }).then(() => { console.log("Plan updated") })
   }
 
   useEffect(() => {
-    getUserInfo();
-  }, []);
+    getPlan();
+}, []);
 
-  const handleSubmit = e => {
+const handleSubmit = e => {
     e.preventDefault();
   }
 
-  const getUserInfo = () => {
-    fetch('http://localhost:8081/user/getByMail/mail?mail=' + email, {
+const getPlan = () => {
+    fetch('http://localhost:8081/plan/getById/id?id=' + id, {
     }).then(response => response.json())
       .then(data => {
-        console.log(data);
-        setName(data[0].name);
-        setMail(data[0].email);
-        setAddress(data[0].address);
-        setArea(data[0].area);
+            console.log(data);
+            setName(data[0].name);
+            setDescription(data[0].description);
       })
   };
 
   return (
     <div class="column">
       <div class="profilecontainer">
-        <img src="http://media.idownloadblog.com/wp-content/uploads/2012/04/Phil-Schiller-headshot-e1362692403868.jpg" height="150" width="150" />
-
         <Form onSubmit={(e) => {
           handleSubmit(e);
-          updateUser();
+          updatePlan();
         }}>
 
           <h2>{name}</h2>
@@ -65,27 +59,33 @@ function Profile(props) {
             ></Form.Control>
           </Form.Group>
 
-          <h4>{email}</h4>
+          <p>{description}</p>
 
-          <p>{address}</p>
-
-          <Form.Group controlId="address">
+          <Form.Group controlId="description">
             <Form.Control style={{ fontSize: 14, fontFamily: "Times New Roman", height: "30px", width: "500px", backgroundColor: "#E7E2E2" }}
               type="text"
-              placeholder="Enter Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Enter Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             ></Form.Control>
           </Form.Group>
-
+          
           <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
-            Update Profile
+            Update Plan
           </Button>
         </Form>
+
+        <br/>
+          <span><a href='/addplanfriends'>Add friends</a></span><br/>
+          <br/>
+          <span><a href='/addplanlocations'>Add locations</a></span><br/>
+          <br/>
+          <span><a href='/addnotes'>Add notes</a></span><br/>
+          <br/>
       </div>
     </div>
   );
 
 }
 
-export default Profile
+export default Plandetails
