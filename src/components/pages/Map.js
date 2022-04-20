@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import ReactMapGL, { 
+  Marker, 
+  Popup, 
+  NavigationControl,
+  FullscreenControl,
+  ScaleControl,
+  GeolocateControl} from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Room, Star } from "@material-ui/icons";
 import "./Map.css"
@@ -28,7 +34,7 @@ function Map(){
         });
     const handleMarkerClick = (id, lat, lng) => {
         setCurrentPlaceId(id);
-        setViewState({ zoom: 15, latitude: lat, longitude: lng });
+        setViewState({ zoom: 14, latitude: lat, longitude: lng });
     };
     const handleAddClick = (e) => {
         const latitude = e.lngLat.lat
@@ -90,16 +96,20 @@ function Map(){
       
 
     return(
-        <div style={{width: "100%", height: "100vh"}}>
+        <div style={{width: "100%", height: "90vh"}}>
         <ReactMapGL
             {...viewState}
             {...settings}
             onMove={evt => setViewState(evt.viewState)}
-            transitionDuration="200"
-            mapStyle="mapbox://styles/mapbox/streets-v9"
+            transitionDuration="500"
+            mapStyle="mapbox://styles/mapbox/dark-v9"
             mapboxAccessToken={TOKEN}
             onDblClick={handleAddClick}
         >
+          <GeolocateControl position="top-left"/>
+          <FullscreenControl position="top-left"/>
+          <NavigationControl position="top-left"/>
+          <ScaleControl />
             {pins.map(p=>(
             <React.Fragment key={p.id}>
                 <Marker
