@@ -17,10 +17,14 @@ function Map(){
     const [pins, setPins] = useState([]);
     const [currentPlaceId, setCurrentPlaceId] = useState(null);
     const [newPlace, setNewPlace] = useState(null);
-    const [username, setUsername] = useState(null);
-    const [title, setTitle] = useState(null);
-    const [desc, setDesc] = useState(null);
+    //const [username, setUsername] = useState(null);
+    const [name, setName] = useState(null);
+    const [description, setDescription] = useState(null);
+    const [division, setDivision] = useState(null);
+    const [type, setType] = useState(null);
     const [star, setStar] = useState(0);
+    const imageURL = "";
+    const username = "";
     const [viewState, setViewState] = useState({
         latitude:  23.777,
         longitude: 90.399,
@@ -46,17 +50,21 @@ function Map(){
         console.log(e)
     }
     const handleSubmit = async (e) => {
-        e.preventDefault();
+       // e.preventDefault();
         const newPin = {
-            title,
-            desc,
+            username,
+            description,
             rating: star,
             lat: newPlace.lat,
             lng: newPlace.lng,
+            name,
+            division,
+            type,
+            imageURL
         };
     
         try {
-          const res = await axios.post("http://localhost:8081/pins/addPin", newPin);
+          const res = await axios.post("http://localhost:8081/location/add", newPin);
           setPins([...pins, res.data]);
           setNewPlace(null);
         } catch (err) {
@@ -67,7 +75,7 @@ function Map(){
     useEffect(() => {
         const getPins = async () => {
           try {
-            const allPins = await axios.get("http://localhost:8081/pins/getAllPins");
+            const allPins = await axios.get("http://localhost:8081/location/getAll");
             setPins(allPins.data);
           } catch (err) {
             console.log(err);
@@ -136,9 +144,9 @@ function Map(){
                 >
                 <div className="card">
                   <label>Place</label>
-                  <h4 className="place">{p.title}</h4>
+                  <h4 className="place">{p.name}</h4>
                   <label>Review</label>
-                  <p className="desc">{p.desc}</p>
+                  <p className="desc">{p.description}</p>
                   <label>Rating</label>
                   <div className="stars">
                     {Array(p.rating).fill(<Star className="star" />)}
@@ -169,12 +177,12 @@ function Map(){
                   <input
                     placeholder="Enter a title"
                     autoFocus
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                   />
                   <label>Description</label>
                   <textarea
                     placeholder="Say us something about this place."
-                    onChange={(e) => setDesc(e.target.value)}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                   <label>Rating</label>
                   <select onChange={(e) => setStar(e.target.value)}>
@@ -183,6 +191,26 @@ function Map(){
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
+                  </select>
+                  <label>Division</label>
+                  <select onChange={(e) => setDivision(e.target.value)}>
+                    <option value='Dhaka'>Dhaka</option>
+                    <option value='Rajshahi'>Rajshahi</option>
+                    <option value='Chittagong'>Chittagong</option>
+                    <option value='Barisal'>Barisal</option>
+                    <option value='Khulna'>Khulna</option>
+                    <option value='Sylhet'>Sylhet</option>
+                    <option value='Rangpur'>Rangpur</option>
+                  </select>
+                  <label>Type</label>
+                  <select onChange={(e) => setType(e.target.value)}>
+                    <option value='Historic'>Historic Place</option>
+                    <option value='Beach'>Beach</option>
+                    <option value='Mountain'>Mountain</option>
+                    <option value='Amusement'>Amusement Park</option>
+                    <option value='Restaurant'>Restaurant</option>
+                    <option value='Hotel'>Hotel</option>
+                    <option value='Forest'>Forest</option>
                   </select>
                   <button type="submit" className="submitButton">
                     Add Pin
