@@ -46,8 +46,7 @@ function Map(){
         console.log(e)
     }
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const newPin = {
+            const newPin = {
             title,
             desc,
             rating: star,
