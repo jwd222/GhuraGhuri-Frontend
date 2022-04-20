@@ -15,6 +15,8 @@ import Plandetails from './components/pages/Plandetails';
 import Map from './components/pages/Map';
 import AllArticle from './components/pages/AllArticle';
 import ArticleDetails from './components/pages/ArticleDetails';
+import MyArticles from './components/pages/MyArticles';
+import MyArticleDetails from './components/pages/MyArticleDetails';
 
 function App() {
   const history = createBrowserHistory();
@@ -34,7 +36,9 @@ function App() {
         <Route path='/addplan' component={Addplan}/>
         <Route path='/plandetails' component={Plandetails}/>
         <Route path='/allarticles' component={AllArticle}/>
+        <Route path='/myarticles' component={MyArticles}/>
         <Route path='/articledetails' component={ArticleDetails}/>
+        <Route path='/myarticledetails' component={MyArticleDetails}/>
         </Switch>
       </Router>
     </>

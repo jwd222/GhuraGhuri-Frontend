@@ -5,59 +5,36 @@ import { useEffect} from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { createBrowserHistory } from 'history';
 import './ArticleDetails.css'
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaThumbsUp, FaThumbsDown, FaTrash } from "react-icons/fa";
 
 
 
-function ArticleDetails(){
+function MyArticleDetails(){
     const history = createBrowserHistory({forceRefresh:true});
     const id = localStorage.getItem('articleID');
     const [userid, setUserId] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [lnumber, setLike] = useState("");
-    const [dnumber, setDislike] = useState("");
+    const [like, setLike] = useState("");
+    const [dislike, setDislike] = useState("");
     const [name, setName] = useState("");
     const [imageURL, setImageURL] = useState("");
 
 
-      const updateUserLike=()=>
-    {  const like = lnumber +1;
-       const dislike = dnumber;
-       console.log(like);
-       console.log(dislike);
-        const article={id, userid, title, description, like, dislike, imageURL};
-        console.log(article);
-        fetch("http://localhost:8081/article/updateLike", {
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(article)
-        }).then(()=>{
-            console.log("article updated");
-            history.push({
-              pathname: '/articledetails'
-            });
-          }
-        )}
-
-        const updateUserDislike=()=>
-        {  const like = lnumber ;
-           const dislike = dnumber + 1;
-           console.log(like);
-           console.log(dislike);
-            const article={id, userid, title, description, like, dislike, imageURL};
-            console.log(article);
-            fetch("http://localhost:8081/article/updateDislike", {
-                method:"POST",
-                headers:{"Content-Type":"application/json"},
-                body:JSON.stringify(article)
-            }).then(()=>{
-                console.log("article updated");
-                history.push({
-                  pathname: '/articledetails'
-                });
-              }
-            )}
+            const deleteArticle=()=>
+            {   const article={id, userid, title, description, like, dislike, imageURL};
+                console.log(article);
+                fetch("http://localhost:8081/article/delete", {
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify(article)
+                }).then(()=>{
+                    console.log("articledeleted");
+                    history.push({
+                      pathname: '/myarticles'
+                    });
+                  }
+                )}
     
       const getArticleInfo = () => {
         fetch('http://localhost:8081/article/getById/id?id='+id, {
@@ -107,8 +84,9 @@ function ArticleDetails(){
               <h3 style={{ fontSize: 14, fontFamily: "Times New Roman", fontWeight: "400", marginTop: "10px" }}>{description}</h3>
             </Row>
             <Row style={{fontSize: 18, fontFamily: "Times New Roman",  margin: "20px"}}>
-              <Col style={{margin: "20px"}}><h4 style={{fontSize: 18, fontFamily: "Times New Roman", color: "#222F6E"}}><FaThumbsUp onClick={updateUserLike}/> {lnumber}</h4></Col>
-              <Col style={{marginLeft: "40px", marginTop: "20px"}}><h4  style={{fontSize: 18, fontFamily: "Times New Roman", color: "#222F6E"}}><FaThumbsDown onClick={updateUserDislike}/> {dnumber} </h4></Col>
+              <Col style={{margin: "20px"}}><h4 style={{fontSize: 18, fontFamily: "Times New Roman", color: "#222F6E"}}><FaThumbsUp/> {like}</h4></Col>
+              <Col style={{marginLeft: "40px", marginTop: "20px"}}><h4  style={{fontSize: 18, fontFamily: "Times New Roman", color: "#222F6E"}}><FaThumbsDown/> {dislike} </h4></Col>
+              <Col style={{marginLeft: "40px", marginTop: "20px"}}><h4  style={{fontSize: 18, fontFamily: "Times New Roman", color: "#222F6E"}}><FaTrash onClick={deleteArticle}/> delete </h4></Col>
             </Row>
             <Row>
               <p style={{ fontSize: 18, fontFamily: "Times New Roman" }}>______________________________________________________________________</p>
@@ -120,4 +98,4 @@ function ArticleDetails(){
     )
 }
 
-export default ArticleDetails
+export default MyArticleDetails
