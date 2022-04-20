@@ -39,7 +39,7 @@ function AllArticle(){
                     src={values.imageURL}
                     text={values.title}
                     label='Article_preview'
-                    path='/noticedetails' />
+                    path='/articledetails' />
                 </ul>
               </div>
             </div>

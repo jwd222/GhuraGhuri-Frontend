@@ -8,7 +8,7 @@ import CardItem from '../CardItem'
 
 function Home() {
     const history = createBrowserHistory({forceRefresh:true});
-    const [id, setID] = useState("");
+    const [userid, setID] = useState("");
     const [listOfArticles, setArticle] = useState([]);
     //const [listOfNotices, setNotices] = useState([]);
     const [title, setTitle] = useState("");
@@ -30,8 +30,8 @@ function Home() {
     }
 
     const addPost = () =>
-    {
-      const article={id, title, description, like, dislike, imageURL};
+    { setID(localStorage.getItem('currentID'));
+      const article={userid, title, description, like, dislike, imageURL};
         console.log(article);
         fetch("http://localhost:8081/article/add",{
             method:"POST",
@@ -150,7 +150,7 @@ function Home() {
                     src={values.imageURL}
                     text={values.title}
                     label='Article_preview'
-                    path='/noticedetails' />
+                    path='/articledetails' />
                 </ul>
               </div>
             </div>
