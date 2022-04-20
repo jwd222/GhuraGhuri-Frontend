@@ -4,16 +4,31 @@ import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import CardItem from '../CardItem'
+import { FaTrash } from "react-icons/fa";
 
-function Plandetails(props) {
+function Plandetails() {
+  const history = createBrowserHistory({ forceRefresh: true });
   const email = localStorage.getItem('email');
-  const id =  localStorage.getItem('planId');
+  const id = localStorage.getItem('planId');
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [description, setDescription] = useState("");
+  const [listOfNotes, setNote] = useState([]);
+  const [notedescription, setNoteDescription] = useState("");
+
+  useEffect(() => {
+    getPlan();
+    getNote();
+  }, []);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+  }
 
   const updatePlan = (e) => { //e.preventDefault();
-    const plan = {id, name, email, description };
+    const plan = { id, name, email, description };
     console.log(plan);
     fetch("http://localhost:8081/plan/update", {
       method: "POST",
@@ -22,66 +37,138 @@ function Plandetails(props) {
     }).then(() => { console.log("Plan updated") })
   }
 
-  useEffect(() => {
-    getPlan();
-}, []);
-
-const handleSubmit = e => {
-    e.preventDefault();
-  }
-
-const getPlan = () => {
+  const getPlan = () => {
     fetch('http://localhost:8081/plan/getById/id?id=' + id, {
     }).then(response => response.json())
       .then(data => {
-            console.log(data);
-            setName(data[0].name);
-            setDescription(data[0].description);
+        console.log(data);
+        setName(data[0].name);
+        setDescription(data[0].description);
       })
   };
 
+  const deletePlan = () => {
+    const plan = { id, name, email, description };
+    console.log(plan);
+    fetch("http://localhost:8081/plan/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(plan)
+    }).then(() => {
+      console.log("plandeleted");
+      history.push({
+        pathname: '/myplans'
+      });
+    }
+    )
+  };
+
+  const getNote = () => {
+    fetch('http://localhost:8081/note/getByPlanId/planid?planid=' + id, {
+    }).then(response => response.json())
+      .then(data => {
+        setNote(data);
+        console.log(data);
+      })
+  };
+
+  const addNote = () => {
+    const note = { planid: id, description: notedescription };
+    console.log(note);
+    fetch("http://localhost:8081/note/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(note)
+    }).then(() => {
+      console.log("New note added");
+      setNoteDescription("");
+      localStorage.setItem('planId', id);
+      history.push({
+        pathname: '/plandetails'
+      });
+    })
+  }
+
   return (
-    <div class="column">
-      <div class="profilecontainer">
-        <Form onSubmit={(e) => {
-          handleSubmit(e);
-          updatePlan();
-        }}>
+    <div>
+      <div class="column">
+        <div class="profilecontainer">
+          <Form onSubmit={(e) => {
+            handleSubmit(e);
+            updatePlan();
+          }}>
 
-          <h2>{name}</h2>
+            <h2>{name}</h2>
 
-          <Form.Group controlId="name">
-            <Form.Control style={{ fontSize: 14, fontFamily: "Times New Roman", height: "30px", width: "500px", backgroundColor: "#E7E2E2" }}
-              type="text"
-              placeholder="Enter Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+            <Form.Group controlId="name">
+              <Form.Control style={{ fontSize: 14, fontFamily: "Times New Roman", height: "30px", width: "500px", backgroundColor: "#E7E2E2" }}
+                type="text"
+                placeholder="Enter Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
 
-          <p>{description}</p>
+            <p>{description}</p>
 
-          <Form.Group controlId="description">
-            <Form.Control style={{ fontSize: 14, fontFamily: "Times New Roman", height: "30px", width: "500px", backgroundColor: "#E7E2E2" }}
-              type="text"
-              placeholder="Enter Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-          
-          <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
-            Update Plan
-          </Button>
-        </Form>
+            <Form.Group controlId="description">
+              <Form.Control style={{ fontSize: 14, fontFamily: "Times New Roman", height: "30px", width: "500px", backgroundColor: "#E7E2E2" }}
+                type="text"
+                placeholder="Enter Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
 
-        <br/>
-          <span><a href='/addplanfriends'>Add friends</a></span><br/>
-          <br/>
-          <span><a href='/addplanlocations'>Add locations</a></span><br/>
-          <br/>
-          <span><a href='/addnotes'>Add notes</a></span><br/>
-          <br/>
+            <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
+              Update Plan
+            </Button>
+
+            <Row style={{ fontSize: 18, fontFamily: "Times New Roman", margin: "20px" }}>
+              <Col style={{ marginLeft: "40px", marginTop: "20px" }}><h4 style={{ fontSize: 18, fontFamily: "Times New Roman", color: "#222F6E" }}><FaTrash onClick={deletePlan} /> delete </h4></Col>
+            </Row>
+          </Form>
+
+          <br />
+          <span><a href='/addplanlocations'>Add locations</a></span><br />
+          <br />
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="profilecontainer">
+
+          <Form onSubmit={(f) => {
+            handleSubmit(f);
+            addNote();
+          }}>
+
+            <Form.Group controlId="notedescription">
+              <Form.Control style={{ fontSize: 14, fontFamily: "Times New Roman", height: "30px", width: "500px", backgroundColor: "#E7E2E2" }}
+                type="text"
+                placeholder="Write Note"
+                value={notedescription}
+                onChange={(f) => setNoteDescription(f.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
+              Add Note
+            </Button>
+
+          </Form>
+
+          <div>
+            {Object.entries(listOfNotes).map(([values, key]) => {
+              return (
+                <div>
+                  <p>{key.description}</p>
+                </div>
+              )
+            })}
+          </div>
+
+        </div>
       </div>
     </div>
   );

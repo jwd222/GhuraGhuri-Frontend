@@ -4,9 +4,12 @@ import { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import './Addplan.css'
 import { Link } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import CardItem from '../CardItem'
 
 
 function Addplan() {
+  const history = createBrowserHistory({ forceRefresh: true });
     const email = localStorage.getItem('email');
     const [id, setId] = useState("");
     const i = 0;
@@ -31,7 +34,10 @@ function Addplan() {
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(plan)
-        }).then(()=>{console.log("New Plan added")})
+        }).then(()=>{console.log("New Plan added");
+        history.push({
+          pathname: '/myplans'
+        });})
     }
 
     const handleSubmit = e => {

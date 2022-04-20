@@ -6,8 +6,10 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import { Link } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 function Myplans(props) {
+    const history = createBrowserHistory({forceRefresh:true});
     const email = localStorage.getItem('email');
     const [listOfPlans, setPlans] = useState([]);
 
@@ -37,10 +39,12 @@ function Myplans(props) {
                             <ul className='cards__item'
                                 onClick={() => {
                                     localStorage.setItem('planId', values.id);
+                                    history.push({
+                                        pathname: '/plandetails'
+                                      });
                                 }}>
                                 <CardItem
                                     text={values.name}
-                                    path='/plandetails'
                                 />
                             </ul>
                         </div>
