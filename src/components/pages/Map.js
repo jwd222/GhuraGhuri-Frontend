@@ -5,7 +5,9 @@ import { Room, Star } from "@material-ui/icons";
 import "./Map.css"
 import axios from "axios";
 
+
 function Map(){
+    const TOKEN = 'pk.eyJ1IjoiZmFyaWFiaW50ZWthZGVyIiwiYSI6ImNsMjVwMWdyNDA2YmozYm8wZDk1MDkyb2sifQ.MNgRzV6q5svRlvzeziFZsQ'
     const [pins, setPins] = useState([]);
     const [currentPlaceId, setCurrentPlaceId] = useState(null);
     const [newPlace, setNewPlace] = useState(null);
@@ -37,7 +39,6 @@ function Map(){
         });
         console.log(e)
     }
-    
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newPin = {
@@ -55,7 +56,7 @@ function Map(){
         } catch (err) {
           console.log(err);
         }
-      };
+      }
 
     useEffect(() => {
         const getPins = async () => {
@@ -69,6 +70,25 @@ function Map(){
         getPins();
       }, [])
 
+      useEffect(()=>{
+          const listener = e=>{
+              if(e.key === "Escape"){
+                  setCurrentPlaceId(null);
+              }
+          };
+          window.addEventListener("keydown", listener);
+      }, []);
+
+      useEffect(()=>{
+        const listener = e=>{
+            if(e.key === "Escape"){
+                setNewPlace(null);
+            }
+        };
+        window.addEventListener("keydown", listener);
+    }, []);
+      
+
     return(
         <div style={{width: "100%", height: "100vh"}}>
         <ReactMapGL
@@ -77,7 +97,7 @@ function Map(){
             onMove={evt => setViewState(evt.viewState)}
             transitionDuration="200"
             mapStyle="mapbox://styles/mapbox/streets-v9"
-            mapboxAccessToken='pk.eyJ1IjoiZmFyaWFiaW50ZWthZGVyIiwiYSI6ImNsMjVwMWdyNDA2YmozYm8wZDk1MDkyb2sifQ.MNgRzV6q5svRlvzeziFZsQ'
+            mapboxAccessToken={TOKEN}
             onDblClick={handleAddClick}
         >
             {pins.map(p=>(
@@ -86,7 +106,7 @@ function Map(){
                     latitude={p.lat}
                     longitude={p.lng}
                     offsetLeft={-20}
-                    offsetTop={-10}    
+                    offsetTop={-10}
                 >
                 <Room 
                     style={{color:"slateblue", cursor:"pointer"}}
@@ -104,24 +124,20 @@ function Map(){
                         console.log(e);
                     }}
                 >
-                    <div className="card">
-                        <label>Place</label>
-                            <h4 className="place">{p.title}</h4>
-                        <label>Review</label>
-                            <p className="desc">{p.desc}</p>
-                        <label>Rating</label>
-                        <div className="star">
-                            <Star className="star"/>
-                            <Star className="star"/>
-                            <Star className="star"/>
-                            <Star className="star"/>
-                            <Star className="star"/>
-                        </div>
-                        <label>Information</label>
-                            <span>
-                                <p className="username">Created by <b>{p.username}</b></p>
-                            </span>
-                    </div>
+                <div className="card">
+                  <label>Place</label>
+                  <h4 className="place">{p.title}</h4>
+                  <label>Review</label>
+                  <p className="desc">{p.desc}</p>
+                  <label>Rating</label>
+                  <div className="stars">
+                    {Array(p.rating).fill(<Star className="star" />)}
+                  </div>
+                  <label>Information</label>
+                  <span className="username">
+                    Created by <b>{p.username}</b>
+                  </span>
+                </div>
                 </Popup>
                 )}
             </React.Fragment>
