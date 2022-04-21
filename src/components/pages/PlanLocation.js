@@ -7,6 +7,7 @@ import { createBrowserHistory } from 'history';
 function PlanLocation() {
     const [listOfLocation, setLocation] = useState([]);
     const [name, setName] = useState("");
+    const planid = localStorage.getItem('planId');
 
     useEffect(() => {
         getAllLocation();
@@ -29,6 +30,7 @@ function PlanLocation() {
                 console.log(data);
             })
     };
+
 
     const HandleSearch = (name) => {
        if (name !== "") {
@@ -59,16 +61,25 @@ function PlanLocation() {
 </div>
 {listOfLocation.map((values, key) => {
           return (
-            <div >
-              <div >
-                <ul 
+            <div className='cards__container_uni'>
+              <div className='cards__wrapper'>
+                <ul className='cards__items_uni'
                   onClick={() => {
-                    localStorage.setItem('articleID', values.id);
+                      console.log(planid)
+                    const note = { planid: planid, locationid: values.id, locationname: values.name };
+                    fetch("http://localhost:8081//test/addtest", {
+                     method: "POST",
+                     headers: { "Content-Type": "application/json" },
+                     body: JSON.stringify(note)
+                     }).then(() => {
+                     console.log("New location added"); })
                   }}>
-                  <input className='locationplan'
-                    type="radio"
-                    value={values.name}
-                   >{values.name}</input>
+                  <CardItem
+                    src={values.imageURL}
+                    text={values.name}
+                    label='Article_preview'
+                    //path='/plandetails'
+                     />
                 </ul>
               </div>
             </div>
