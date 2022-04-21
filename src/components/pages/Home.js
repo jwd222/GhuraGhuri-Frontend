@@ -61,7 +61,7 @@ function Home() {
   useEffect(() => {
     setListOfPlaces(pinData.filter(coordinate => {
     // console.log("useEffect", pinData, listOfPlaces)
-      return calculateDistance(currentLat, currentLng, coordinate.lat, coordinate.lng) <= 10000
+      return calculateDistance(currentLat, currentLng, coordinate.lat, coordinate.lng) <= 5000
     }))
   }, [pinData]);
 

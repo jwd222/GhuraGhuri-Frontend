@@ -60,10 +60,10 @@ function Map(){
 
   const addImageURLbasedOnType = (t) => {
     if(t==="Historic"){
-      setImageURL("https://www.remotelands.com/remotenew1/dist/images/itinerary/b170621013.jpg%22");
+      setImageURL("https://www.remotelands.com/remotenew1/dist/images/itinerary/b170621013.jpg");
     }
     else if(t==="Beach"){
-      setImageURL("https://portalsbd.com/wp-content/uploads/2018/11/Coxs-Bazar-Photo-1.jpg%22");
+      setImageURL("https://portalsbd.com/wp-content/uploads/2018/11/Coxs-Bazar-Photo-1.jpg");
     }
     else if(t==="Mountain"){
       setImageURL("https://dailyasianage.com/library/2019/12/28/1577565314_3.jpg");
