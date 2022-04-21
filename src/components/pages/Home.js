@@ -11,7 +11,7 @@ function Home() {
   const history = createBrowserHistory({ forceRefresh: true });
   const [userid, setID] = useState("");
   const [listOfArticles, setArticle] = useState([]);
-  const [listOfPlaces, setPlace] = useState([]);
+  const [listOfPlaces, setListOfPlaces] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const like = 0;
@@ -50,6 +50,21 @@ function Home() {
     getTopArticle();
     getPinData();
   }, []);
+
+/* 
+  const data = pinData.map(coordinate => ({
+    id: coordinate.id,
+    distnace: calculateDistance(currentLat, currentLng, coordinate.lat, coordinate.lng)
+  }));
+  console.log(data) */
+
+  useEffect(() => {
+    setListOfPlaces(pinData.filter(coordinate => {
+    // console.log("useEffect", pinData, listOfPlaces)
+      return calculateDistance(currentLat, currentLng, coordinate.lat, coordinate.lng) <= 10000
+    }))
+  }, [pinData]);
+
   console.log(pinData);
 
   const handleSubmit = e => {
@@ -92,10 +107,7 @@ function Home() {
   /* console.log(`Currennt latitude is: ${currentLat}`);
   console.log(`Currennt longitude is: ${currentLng}`);
   console.log(pinData) */
-  const data = pinData.map(coordinates => {
-    return calculateDistance(currentLat, currentLng, coordinates.lat, coordinates.lng);
-  })
-  console.log(data)
+  
   
   const getTopArticle = () => {
     fetch('http://localhost:8081/article/getTopArticles', {
@@ -109,7 +121,6 @@ function Home() {
   const toggleModal = () => {
     setModal(!modal);
   };
-
 
   if (modal) {
     document.body.classList.add('active-modal')
@@ -210,17 +221,18 @@ function Home() {
         <br />
         <div><button className='morebtn' onClick={(e) => { history.push({ pathname: '/allarticles' }); }}>See more Articles</button></div>
         <h1>Places Nearby</h1>
-        {listOfPlaces.map((values, key) => {
+        {listOfPlaces.map((places, key) => {
+          console.log("From article", places)
           return (
             <div className='cards__container_uni'>
               <div className='cards__wrapper'>
                 <ul className='cards__items_uni'
                   onClick={() => {
-                    localStorage.setItem('articleID', values.id);
+                    localStorage.setItem('articleID', places.id);
                   }}>
                   <CardItem
-                    src={values.imageURL}
-                    text={values.title}
+                    // src={places.imageURL}
+                    text={places.name}
                     label='Article_preview'
                     path='/articledetails' />
                 </ul>
