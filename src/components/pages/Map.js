@@ -31,11 +31,11 @@ function Map(){
       zoom: 12
   });
   const [settings, setsettings] = useState({
-      touchZoom: false,
-      touchRotate: false,
-      keyboard: false,
-      doubleClickZoom: false
-      });
+    touchZoom: false,
+    touchRotate: false,
+    keyboard: false,
+    doubleClickZoom: false
+  });
   const handleMarkerClick = (id, lat, lng) => {
       setCurrentPlaceId(id);
       setViewState({ zoom: 14, latitude: lat, longitude: lng });
@@ -84,6 +84,7 @@ function Map(){
       setNewPlace(null);
     }
   };
+
   useEffect(() => {
       getPins();
       window.addEventListener("keydown", listener);
