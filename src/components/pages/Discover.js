@@ -250,6 +250,8 @@ function Discover() {
                     <option value='Restaurant'>Restaurant</option>
                     <option value='Hotel'>Hotel</option>
                     <option value='Forest'>Forest</option>
+                    <option value='Park'>Park</option>
+                    <option value='Other'>Other</option>
                 </select>
             </div>
 

@@ -55,8 +55,8 @@ function PlanLocation() {
             body: JSON.stringify(planLocation)
         }).then(() => {
             console.log("New plan location added");
-            console.log(locationid);
-            console.log(locationname);
+            console.log(planLocation);
+            //console.log(locationname);
             /*history.push({
                 pathname: '/plandetails'
             });*/
