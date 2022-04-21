@@ -12,6 +12,7 @@ function Plandetails() {
   const history = createBrowserHistory({ forceRefresh: true });
   const email = localStorage.getItem('email');
   const id = localStorage.getItem('planId');
+  const [noteplanid, setNotePlanId] = useState("");
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [description, setDescription] = useState("");
@@ -19,6 +20,7 @@ function Plandetails() {
   const [notedescription, setNoteDescription] = useState("");
 
   useEffect(() => {
+    setNotePlanId(id);
     getPlan();
     getNote();
   }, []);
@@ -64,7 +66,7 @@ function Plandetails() {
   };
 
   const getNote = () => {
-    fetch('http://localhost:8081/note/getByPlanId/planid?planid=' + id, {
+    fetch('http://localhost:8081/note/getByPlanId/planId?planId=' + id, {
     }).then(response => response.json())
       .then(data => {
         setNote(data);
@@ -72,8 +74,9 @@ function Plandetails() {
       })
   };
 
-  const addNote = () => {
-    const note = { planid: id, description: notedescription };
+  const addNote = (f) => {
+    f.preventDefault();
+    const note = { planId: id, description: notedescription };
     console.log(note);
     fetch("http://localhost:8081/note/add", {
       method: "POST",
@@ -140,7 +143,8 @@ function Plandetails() {
 
           <Form onSubmit={(f) => {
             handleSubmit(f);
-            addNote();
+            setNotePlanId(id);
+            addNote(f);
           }}>
 
             <Form.Group controlId="notedescription">
@@ -148,7 +152,10 @@ function Plandetails() {
                 type="text"
                 placeholder="Write Note"
                 value={notedescription}
-                onChange={(f) => setNoteDescription(f.target.value)}
+                onChange={(f) => {
+                  setNotePlanId(id);
+                  setNoteDescription(f.target.value);
+                }}
               ></Form.Control>
             </Form.Group>
 
