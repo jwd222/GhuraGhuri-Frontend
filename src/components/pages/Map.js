@@ -17,14 +17,14 @@ function Map(){
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
-  //const [username, setUsername] = useState(null);
+  const id = localStorage.getItem('currentID');
+  const [username, setUsername] = useState(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
   const [division, setDivision] = useState(null);
   const [type, setType] = useState(null);
   const [star, setStar] = useState(0);
   const imageURL = "";
-  const username = "";
   const [viewState, setViewState] = useState({
       latitude:  23.777,
       longitude: 90.399,
@@ -85,8 +85,18 @@ function Map(){
     }
   };
 
+  const getUserName = () => {
+    fetch('http://localhost:8081/user/getById/id?id='+id, {
+    }).then(response => response.json())
+    .then(data => {
+      console.log(data);
+     setUsername(data[0].name);
+    })
+  };
+
   useEffect(() => {
       getPins();
+      getUserName();
       window.addEventListener("keydown", listener);
       window.addEventListener("keydown", listener);
 

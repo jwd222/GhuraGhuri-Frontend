@@ -203,9 +203,9 @@ function Home() {
         <h1>Recent Articles</h1>
         {listOfArticles.map((values, key) => {
           return (
-            <div className='cards__container_uni'>
-              <div className='cards__wrapper'>
-                <ul className='cards__items_uni'
+            <div className='cardscontainer_location'>
+              <div className='cardswrapper' >
+                <ul className='cards__items_loc'
                   onClick={() => {
                     localStorage.setItem('articleID', values.id);
                   }}>
@@ -225,9 +225,9 @@ function Home() {
         {listOfPlaces.map((places, key) => {
           console.log("From article", places)
           return (
-            <div className='cards__container_uni'>
-              <div className='cards__wrapper'>
-                <ul className='cards__items_uni'
+            <div className='cardscontainer_location'>
+              <div className='cardswrapper' >
+                <ul className='cards__items_loc'
                   onClick={() => {
                     localStorage.setItem('locationID', places.id);
                   }}>
