@@ -11,7 +11,7 @@ function Home() {
   const history = createBrowserHistory({ forceRefresh: true });
   const [userid, setID] = useState("");
   const [listOfArticles, setArticle] = useState([]);
-  //const [listOfNotices, setNotices] = useState([]);
+  const [listOfPlaces, setPlace] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const like = 0;
@@ -29,6 +29,21 @@ function Home() {
       console.log(err);
     }
   };
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371e3; // metres
+    const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+    const φ2 = lat2 * Math.PI/180;
+    const Δφ = (lat2-lat1) * Math.PI/180;
+    const Δλ = (lon2-lon1) * Math.PI/180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    const d = R * c; // in metres
+    return d;
+  }
 
   useEffect(() => {
     setID(localStorage.getItem('currentID'));
@@ -68,21 +83,20 @@ function Home() {
   function success(pos) {
       setCurrentLat(pos.coords.latitude);
       setCurrentLng(pos.coords.longitude);
-     /*  console.log(`${crd.latitude}`);
-      console.log(`${crd.longitude}`);      
-      console.log('Your current position is:');
-      console.log(`Latitude : ${crd.latitude}`);
-      console.log(`Longitude: ${crd.longitude}`);       
-      console.log(`More or less ${crd.accuracy} meters.`); */
   }
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
-  navigator.geolocation.getCurrentPosition(success, error, options);
-  console.log(`Currennt latitude is: ${currentLat}`);
-  console.log(`Currennt longitude is: ${currentLng}`);
-  
 
+  navigator.geolocation.getCurrentPosition(success, error, options);
+  /* console.log(`Currennt latitude is: ${currentLat}`);
+  console.log(`Currennt longitude is: ${currentLng}`);
+  console.log(pinData) */
+  const data = pinData.map(coordinates => {
+    return calculateDistance(currentLat, currentLng, coordinates.lat, coordinates.lng);
+  })
+  console.log(data)
+  
   const getTopArticle = () => {
     fetch('http://localhost:8081/article/getTopArticles', {
     }).then(response => response.json())
@@ -195,6 +209,26 @@ function Home() {
         })}
         <br />
         <div><button className='morebtn' onClick={(e) => { history.push({ pathname: '/allarticles' }); }}>See more Articles</button></div>
+        <h1>Places Nearby</h1>
+        {listOfPlaces.map((values, key) => {
+          return (
+            <div className='cards__container_uni'>
+              <div className='cards__wrapper'>
+                <ul className='cards__items_uni'
+                  onClick={() => {
+                    localStorage.setItem('articleID', values.id);
+                  }}>
+                  <CardItem
+                    src={values.imageURL}
+                    text={values.title}
+                    label='Article_preview'
+                    path='/articledetails' />
+                </ul>
+              </div>
+            </div>
+          )
+        })}
+        <br />
       </div>
     </div>
   )

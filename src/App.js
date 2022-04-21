@@ -19,6 +19,7 @@ import MyArticles from './components/pages/MyArticles';
 import MyArticleDetails from './components/pages/MyArticleDetails';
 import AboutUs from './components/pages/AboutUs';
 import Fileupload from './components/pages/Fileupload';
+import PlanLocation from './components/pages/PlanLocation';
 
 function App() {
   const history = createBrowserHistory({forceRefresh:true});
@@ -43,6 +44,7 @@ function App() {
         <Route path='/articledetails' component={ArticleDetails}/>
         <Route path='/myarticledetails' component={MyArticleDetails}/>
         <Route path='/fileupload' component={Fileupload}/>
+        <Route path='/planlocation' component={PlanLocation}/>
         </Switch>
       </Router>
     </>

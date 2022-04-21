@@ -133,7 +133,7 @@ function Plandetails() {
           </Form>
 
           <br />
-          <span><a href='/addplanlocations'>Add locations</a></span><br />
+          <span><a href='/planlocation'>Add locations</a></span><br />
           <br />
         </div>
       </div>
