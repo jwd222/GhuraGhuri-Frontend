@@ -18,11 +18,13 @@ function Home() {
   const dislike = 0;
   const imageURL = "";
   const [modal, setModal] = useState(false);
-  const [pins, setPins] = useState([]);
-  const getPins = async () => {
+  const [pinData, setPinData] = useState([]);
+  const [currentLat, setCurrentLat] = useState(null);
+  const [currentLng, setCurrentLng] = useState(null);
+  const getPinData = async () => {
     try {
       const allPins = await axios.get("http://localhost:8081/location/getAll");
-      setPins(allPins.data);
+      setPinData(allPins.data);
     } catch (err) {
       console.log(err);
     }
@@ -31,10 +33,9 @@ function Home() {
   useEffect(() => {
     setID(localStorage.getItem('currentID'));
     getTopArticle();
-    getPins();
-
+    getPinData();
   }, []);
-  // console.log(pins);
+  console.log(pinData);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -65,16 +66,21 @@ function Home() {
       maximumAge: 0,
   };
   function success(pos) {
-      var crd = pos.coords;
+      setCurrentLat(pos.coords.latitude);
+      setCurrentLng(pos.coords.longitude);
+     /*  console.log(`${crd.latitude}`);
+      console.log(`${crd.longitude}`);      
       console.log('Your current position is:');
       console.log(`Latitude : ${crd.latitude}`);
       console.log(`Longitude: ${crd.longitude}`);       
-      console.log(`More or less ${crd.accuracy} meters.`);
+      console.log(`More or less ${crd.accuracy} meters.`); */
   }
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
   navigator.geolocation.getCurrentPosition(success, error, options);
+  console.log(`Currennt latitude is: ${currentLat}`);
+  console.log(`Currennt longitude is: ${currentLng}`);
   
 
   const getTopArticle = () => {
