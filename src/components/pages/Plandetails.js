@@ -18,11 +18,15 @@ function Plandetails() {
   const [description, setDescription] = useState("");
   const [listOfNotes, setNote] = useState([]);
   const [notedescription, setNoteDescription] = useState("");
+  const [listOfPlanLocations, setPlanLocation] = useState([]);
+  const [listOfLocations, setLocation] = useState([]);
 
   useEffect(() => {
     setNotePlanId(id);
     getPlan();
     getNote();
+    getPlanLocation();
+    getAllLocation();
   }, []);
 
   const handleSubmit = e => {
@@ -36,10 +40,12 @@ function Plandetails() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(plan)
-    }).then(() => { console.log("Plan updated");
-    history.push({
-      pathname: '/plandetails'
-  }); })
+    }).then(() => {
+      console.log("Plan updated");
+      history.push({
+        pathname: '/plandetails'
+      });
+    })
   }
 
   const getPlan = () => {
@@ -73,6 +79,24 @@ function Plandetails() {
     }).then(response => response.json())
       .then(data => {
         setNote(data);
+        console.log(data);
+      })
+  };
+
+  const getPlanLocation = () => {
+    fetch('http://localhost:8081/planLocation/getByPlanId/planId?planId=' + id, {
+    }).then(response => response.json())
+      .then(data => {
+        setPlanLocation(data);
+        console.log(data);
+      })
+  };
+
+  const getAllLocation = () => {
+    fetch('http://localhost:8081/location/getAll', {
+    }).then(response => response.json())
+      .then(data => {
+        setLocation(data);
         console.log(data);
       })
   };
@@ -127,9 +151,9 @@ function Plandetails() {
             </Form.Group>
 
             <Form.Group controlId="updatebtn">
-            <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
-              Update Plan
-            </Button>
+              <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
+                Update Plan
+              </Button>
             </Form.Group>
 
             <Form.Group controlId="deletebtn" style={{ fontSize: 18, fontFamily: "Times New Roman", margin: "20px" }}>
@@ -166,9 +190,9 @@ function Plandetails() {
             </Form.Group>
 
             <Form.Group controlId="addbtn">
-            <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
-              Add Note
-            </Button>
+              <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
+                Add Note
+              </Button>
             </Form.Group>
 
           </Form>
@@ -185,6 +209,16 @@ function Plandetails() {
 
         </div>
       </div>
+
+      {Object.entries(listOfPlanLocations).map(([values, key]) => {
+              return (
+                <div>
+                  <p>{key.name}</p>
+                </div>
+
+              )
+            })}
+
     </div>
   );
 
