@@ -36,7 +36,10 @@ function Plandetails() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(plan)
-    }).then(() => { console.log("Plan updated") })
+    }).then(() => { console.log("Plan updated");
+    history.push({
+      pathname: '/plandetails'
+  }); })
   }
 
   const getPlan = () => {
@@ -123,13 +126,16 @@ function Plandetails() {
               ></Form.Control>
             </Form.Group>
 
+            <Form.Group controlId="updatebtn">
             <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
               Update Plan
             </Button>
+            </Form.Group>
 
-            <Row style={{ fontSize: 18, fontFamily: "Times New Roman", margin: "20px" }}>
-              <Col style={{ marginLeft: "40px", marginTop: "20px" }}><h4 style={{ fontSize: 18, fontFamily: "Times New Roman", color: "#222F6E" }}><FaTrash onClick={deletePlan} /> delete </h4></Col>
-            </Row>
+            <Form.Group controlId="deletebtn" style={{ fontSize: 18, fontFamily: "Times New Roman", margin: "20px" }}>
+              <Col style={{ marginTop: "20px" }}><h4 style={{ fontSize: 18, fontFamily: "Times New Roman", color: "#222F6E" }}><FaTrash onClick={deletePlan} /></h4></Col>
+            </Form.Group>
+
           </Form>
 
           <br />
@@ -159,9 +165,11 @@ function Plandetails() {
               ></Form.Control>
             </Form.Group>
 
+            <Form.Group controlId="addbtn">
             <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
               Add Note
             </Button>
+            </Form.Group>
 
           </Form>
 

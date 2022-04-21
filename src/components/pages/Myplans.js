@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 function Myplans(props) {
-    const history = createBrowserHistory({forceRefresh:true});
+    const history = createBrowserHistory({ forceRefresh: true });
     const email = localStorage.getItem('email');
     const [listOfPlans, setPlans] = useState([]);
 
@@ -20,11 +20,11 @@ function Myplans(props) {
     const getAllPlans = () => {
         fetch('http://localhost:8081/plan/getByMail/mail?mail=' + email, {
         }).then(response => response.json())
-          .then(data => {
-            setPlans(data);
+            .then(data => {
+                setPlans(data);
                 console.log(data);
-          })
-      };
+            })
+    };
 
     return (
         <div className="Myplans">
@@ -41,9 +41,10 @@ function Myplans(props) {
                                     localStorage.setItem('planId', values.id);
                                     history.push({
                                         pathname: '/plandetails'
-                                      });
+                                    });
                                 }}>
                                 <CardItem
+                                    src={"https://www.washingtonpost.com/graphics/2019/lifestyle/travel/instagram-travel-influencers/img/grid/5.jpg"}
                                     text={values.name}
                                 />
                             </ul>

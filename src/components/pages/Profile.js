@@ -1,11 +1,12 @@
 import "./Profile.css";
-import '../../App.js';
 import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 function Profile(props) {
+  const history = createBrowserHistory({forceRefresh:true});
   const email = localStorage.getItem('email');
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
@@ -20,7 +21,10 @@ function Profile(props) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user)
-    }).then(() => { console.log("User updated") })
+    }).then(() => { console.log("User updated");
+    history.push({
+      pathname: '/profile'
+    }); })
 
   }
 
@@ -47,14 +51,15 @@ function Profile(props) {
   return (
     <div class="column">
       <div class="profilecontainer">
-        <br />
-        <span><a href='/fileupload'>Add Image</a></span><br />
-        <br />
 
         <Form onSubmit={(e) => {
           handleSubmit(e);
           updateUser();
         }}>
+
+          <Form.Group controlId="image">
+            <img src="https://www.washingtonpost.com/graphics/2019/lifestyle/travel/instagram-travel-influencers/img/grid/1.jpg" height="150" width="150" />
+          </Form.Group>
 
           <h2>{name}</h2>
 
@@ -80,9 +85,11 @@ function Profile(props) {
             ></Form.Control>
           </Form.Group>
 
-          <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
-            Update Profile
-          </Button>
+          <Form.Group controlId="updatebtn">
+            <Button type="submit" style={{ height: "30px", width: "200px", backgroundColor: "white", fontSize: 16, fontFamily: "Times New Roman", fontWeight: "bold", backgroundColor: "#E7E2E2", marginTop: "30px" }}>
+              Update Profile
+            </Button>
+          </Form.Group>
         </Form>
       </div>
     </div>

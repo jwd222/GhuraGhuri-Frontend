@@ -1,14 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:900,300);
 
-.profile body {
-  background-color: #95C98D;
+.body {
+  background-color: #ffffff;
   font-family: roboto;
 }
 
 .profilecontainer {
   width: 600px;
   margin: 100px auto 100px;
-  background-color: #c1f6d2;
+  background-color: #95C98D;
   padding: 100px 10px 100px 10px;
   border-radius: 6px;
   -webkit-border-radius: 6px;
