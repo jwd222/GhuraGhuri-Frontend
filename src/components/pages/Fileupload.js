@@ -108,7 +108,7 @@ function Fileupload() {
         const formData = new FormData();
         formData.append("file", file);
         const API_URL = 'http://localhost:8081/files';
-        const response = await Axios.post(API_URL, formData, {
+        const response = await Axios.put(API_URL, formData, {
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
@@ -139,111 +139,107 @@ function Fileupload() {
 
     return (
         <>
-            <CssBaseline />
-
-
-            <Container maxWidth="md">
-                <Paper elevation={4}>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Typography align="center" style={{ padding: 16 }}>
-                                File Upload
-                            </Typography>
-                            <Divider />
-                        </Grid>
-
-                        <Grid item xs={6} style={{ padding: 16 }}>
-                            <RootRef rootRef={ref}>
-                                <Paper
-                                    {...rootProps}
-                                    elevation={0}
-                                    className={classes.dropzoneContainer}
-                                >
-                                    <input {...getInputProps()} />
-                                    <p>Drag 'n' drop some files here, or click to select files</p>
-                                </Paper>
-                            </RootRef>
-                        </Grid>
-
-                        <Grid item xs={6} style={{ padding: 16 }}>
-                            <Typography align="center" variant="subtitle1">
-                                Preview
-                            </Typography>
-                            <img
-                                onLoad={() => URL.revokeObjectURL(preview)}
-                                className={classes.preview}
-                                src={preview || "https://via.placeholder.com/250"}
-                            />
-
-                            {/*  */}
-                            {file && (
-                                <>
-                                    <Divider />
-                                    <Grid
-                                        container
-                                        style={{ marginTop: 16 }}
-                                        alignItems="center"
-                                        spacing={3}
-                                    >
-                                        <Grid item xs={2}>
-                                            <div className={classes.wrapper}>
-                                                <Fab
-                                                    aria-label="save"
-                                                    color="primary"
-                                                    className={buttonClassname}
-                                                    onClick={uploadFile}
-                                                >
-                                                    {success ? <CheckIcon /> : <CloudUpload />}
-                                                </Fab>
-                                                {loading && (
-                                                    <CircularProgress
-                                                        size={68}
-                                                        className={classes.fabProgress}
-                                                    />
-                                                )}
-                                            </div>
-                                        </Grid>
-
-                                        <Grid item xs={10}>
-                                            {file && (
-                                                <Typography variant="body">{file.name}</Typography>
-                                            )}
-                                            {loading && (
-                                                <div>
-                                                    <LinearProgress
-                                                        variant="determinate"
-                                                        value={percent}
-                                                    />
-                                                    <div
-                                                        style={{
-                                                            display: "flex",
-                                                            alignItems: "center",
-                                                            justifyContent: "center",
-                                                        }}
-                                                    >
-                                                        <Typography variant="body">{percent}%</Typography>
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            {success && (
-                                                <Typography>
-                                                    File Upload Success!{" "}
-                                                    <a href={downloadUri} target="_blank">
-                                                        File Url
-                                                    </a>
-                                                </Typography>
-                                            )}
-                                        </Grid>
-                                    </Grid>
-                                </>
-                            )}
-                            {/*  */}
-                        </Grid>
+        <CssBaseline />
+        <Container maxWidth="md">
+            <Paper elevation={4}>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Typography align="center" style={{ padding: 16 }}>
+                            File Upload
+                        </Typography>
+                        <Divider />
                     </Grid>
-                </Paper>
-            </Container>
 
+                    <Grid item xs={6} style={{ padding: 16 }}>
+                        <RootRef rootRef={ref}>
+                            <Paper
+                                {...rootProps}
+                                elevation={0}
+                                className={classes.dropzoneContainer}
+                            >
+                                <input {...getInputProps()} />
+                                <p>Drag 'n' drop some files here, or click to select files</p>
+                            </Paper>
+                        </RootRef>
+                    </Grid>
+
+                    <Grid item xs={6} style={{ padding: 16 }}>
+                        <Typography align="center" variant="subtitle1">
+                            Preview
+                        </Typography>
+                        <img
+                            onLoad={() => URL.revokeObjectURL(preview)}
+                            className={classes.preview}
+                            src={preview || "https://via.placeholder.com/250"}
+                        />
+                        
+                        {file && (
+                            <>
+                                <Divider />
+                                <Grid
+                                    container
+                                    style={{ marginTop: 16 }}
+                                    alignItems="center"
+                                    spacing={3}
+                                >
+                                    <Grid item xs={2}>
+                                        <div className={classes.wrapper}>
+                                            <Fab
+                                                aria-label="save"
+                                                color="primary"
+                                                className={buttonClassname}
+                                                onClick={uploadFile}
+                                            >
+                                                {success ? <CheckIcon /> : <CloudUpload />}
+                                            </Fab>
+                                            {loading && (
+                                                <CircularProgress
+                                                    size={68}
+                                                    className={classes.fabProgress}
+                                                />
+                                            )}
+                                        </div>
+                                    </Grid>
+
+                                    <Grid item xs={10}>
+                                        {file && (
+                                            <Typography variant="body">{file.name}</Typography>
+                                        )}
+                                        {loading && (
+                                            <div>
+                                                <LinearProgress
+                                                    variant="determinate"
+                                                    value={percent}
+                                                />
+                                                <div
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                    }}
+                                                >
+                                                    <Typography variant="body">{percent}%</Typography>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {success && (
+                                            <Typography>
+                                                File Upload Success!{" "}
+                                                <a href={downloadUri} target="_blank">
+                                                    File Url
+                                                </a>
+                                            </Typography>
+                                        )}
+                                    </Grid>
+                                </Grid>
+                            </>
+                        )}
+                        {/*  */}
+                    </Grid>
+                </Grid>
+            </Paper>
+        </Container>
         </>
     );
 }
