@@ -165,7 +165,7 @@ function Map(){
                     latitude={newPlace.lat} 
                     longitude={newPlace.lng}
                     closeButton={true}
-                    closeOnClick={false}
+                    closeOnClick={true}
                     onClose={(e)=>{
                         console.log(e);
                     }}
