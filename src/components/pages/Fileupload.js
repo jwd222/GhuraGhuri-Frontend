@@ -116,7 +116,7 @@ function Fileupload() {
             setPercent(percentCompleted);
           },
         });
-  
+        console.log("File link", response.data.fileDownloadUri)
         setDownloadUri(response.data.fileDownloadUri);
         setSuccess(true);
         setLoading(false);

@@ -141,7 +141,8 @@ function Map(){
                 <p className="desc">{p.description}</p>
                 <label>Rating</label>
                 <div className="stars">
-                  {Array(p.rating).fill(<Star className="star" />)}
+                  {[...Array(parseInt(p.rating))].map(()=><Star className="star" />
+)}
                 </div>
                 <label>Information</label>
                 <span className="username">
