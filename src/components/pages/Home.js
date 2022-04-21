@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { createBrowserHistory } from 'history';
 import CardItem from '../CardItem'
+import axios from 'axios';
 
 
 function Home() {
@@ -17,13 +18,24 @@ function Home() {
   const dislike = 0;
   const imageURL = "";
   const [modal, setModal] = useState(false);
+  const [pinData, setPinData] = useState([]);
+  const [currentLat, setCurrentLat] = useState(null);
+  const [currentLng, setCurrentLng] = useState(null);
+  const getPinData = async () => {
+    try {
+      const allPins = await axios.get("http://localhost:8081/location/getAll");
+      setPinData(allPins.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     setID(localStorage.getItem('currentID'));
     getTopArticle();
-
+    getPinData();
   }, []);
-
+  console.log(pinData);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -47,23 +59,28 @@ function Home() {
     })
   }
 
-    //get default browser location
-    var opt = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0,
-    };
-    function success(pos) {
-        var crd = pos.coords;
-        console.log('Your current position is:');
-        console.log(`Latitude : ${crd.latitude}`);
-        console.log(`Longitude: ${crd.longitude}`);
-        console.log(`More or less ${crd.accuracy} meters.`);
-    }
-    function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
-    navigator.geolocation.getCurrentPosition(success, error, opt);
+  //get default browser location
+  const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+  };
+  function success(pos) {
+      setCurrentLat(pos.coords.latitude);
+      setCurrentLng(pos.coords.longitude);
+     /*  console.log(`${crd.latitude}`);
+      console.log(`${crd.longitude}`);      
+      console.log('Your current position is:');
+      console.log(`Latitude : ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);       
+      console.log(`More or less ${crd.accuracy} meters.`); */
+  }
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+  navigator.geolocation.getCurrentPosition(success, error, options);
+  console.log(`Currennt latitude is: ${currentLat}`);
+  console.log(`Currennt longitude is: ${currentLng}`);
   
 
   const getTopArticle = () => {
