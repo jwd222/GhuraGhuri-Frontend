@@ -259,13 +259,13 @@ function Discover() {
                         <div className='cards__wrapper' >
                             <ul className='cards__items_loc'
                                 onClick={() => {
-                                    // localStorage.setItem('userEmailDiscover', values.Email);
+                                     localStorage.setItem('locationID', values.id);
                                 }}>
                                 <CardItem
                                     src={key.imageURL}
                                     text={key.name}
                                     label='Location_preview_card'
-                                    path='/locationprofilescreen'
+                                    path='/locationdetails'
                                 />
                             </ul>
                         </div>

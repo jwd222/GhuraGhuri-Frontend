@@ -186,6 +186,7 @@ function Map(){
                 </select>
                 <label>Division</label>
                 <select onChange={(e) => setDivision(e.target.value)}>
+                  <option value='Choose Division'>Choose Division</option>
                   <option value='Dhaka'>Dhaka</option>
                   <option value='Rajshahi'>Rajshahi</option>
                   <option value='Chittagong'>Chittagong</option>
@@ -196,6 +197,7 @@ function Map(){
                 </select>
                 <label>Type</label>
                 <select onChange={(e) => setType(e.target.value)}>
+                  <option value='Choose Type'>Choose Type</option>
                   <option value='Historic'>Historic Place</option>
                   <option value='Beach'>Beach</option>
                   <option value='Mountain'>Mountain</option>
