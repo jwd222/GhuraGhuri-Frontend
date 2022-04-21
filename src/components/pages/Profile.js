@@ -47,7 +47,9 @@ function Profile(props) {
   return (
     <div class="column">
       <div class="profilecontainer">
-        <img src="http://media.idownloadblog.com/wp-content/uploads/2012/04/Phil-Schiller-headshot-e1362692403868.jpg" height="150" width="150" />
+        <br />
+        <span><a href='/fileupload'>Add Image</a></span><br />
+        <br />
 
         <Form onSubmit={(e) => {
           handleSubmit(e);
