@@ -75,6 +75,7 @@
     height: 40px;
     width: 100%;
     border: none;
+    font-size: 0.8rem;
   }
   
   .logininput::placeholder {

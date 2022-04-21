@@ -1,5 +1,5 @@
 .hero-container {
-    /*background: url('../assets/background.png') center center/cover no-repeat;*/
+    background: url('../assets/background.jpg') center center/cover no-repeat;
        background-color: #95C98D;
        height: 100vh;
        width: 100%;
@@ -24,7 +24,6 @@
        margin: 6px;
      }
      
-     
      @media screen and (max-width: 960px) {
        .hero-container > h1 {
          font-size: 30px;
@@ -43,4 +42,20 @@
        .btn {
          width: 100%;
        }
+
+       .image-slider{
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+        object-fit: cover;
+       }
+
+       .sliderimg{
+        object-fit: contain;
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+        }
      }

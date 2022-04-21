@@ -16,7 +16,7 @@ function Home() {
   const [description, setDescription] = useState("");
   const like = 0;
   const dislike = 0;
-  const imageURL = "";
+  const imageURL = "https://feelforhair.co.uk/wp-content/uploads/2017/12/default-post-thumbnail.png";
   const [modal, setModal] = useState(false);
   const [pinData, setPinData] = useState([]);
   const [currentLat, setCurrentLat] = useState(null);
@@ -73,6 +73,7 @@ function Home() {
 
   const addPost = () => {
     setID(localStorage.getItem('currentID'));
+
     const article = { userid, title, description, like, dislike, imageURL };
     console.log(article);
     fetch("http://localhost:8081/article/add", {
@@ -231,7 +232,7 @@ function Home() {
                     localStorage.setItem('articleID', places.id);
                   }}>
                   <CardItem
-                    // src={places.imageURL}
+                    src={places.imageURL}
                     text={places.name}
                     label='Article_preview'
                     path='/articledetails' />

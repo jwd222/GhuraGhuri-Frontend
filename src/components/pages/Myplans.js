@@ -44,7 +44,7 @@ function Myplans(props) {
                                     });
                                 }}>
                                 <CardItem
-                                    src={"https://www.washingtonpost.com/graphics/2019/lifestyle/travel/instagram-travel-influencers/img/grid/5.jpg"}
+                                    src={"https://feelforhair.co.uk/wp-content/uploads/2017/12/default-post-thumbnail.png"}
                                     text={values.name}
                                 />
                             </ul>
