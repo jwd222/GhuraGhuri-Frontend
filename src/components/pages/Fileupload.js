@@ -19,7 +19,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import CloudUpload from "@material-ui/icons/CloudUpload";
 import clsx from "clsx";
 import { LinearProgress } from "@material-ui/core";
-import axios from "axios";
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     dropzoneContainer: {
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Fileupload() {
+    const email = localStorage.getItem('email');
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
@@ -100,14 +101,14 @@ function Fileupload() {
 
     const { ref, ...rootProps } = getRootProps();
 
-    /*const uploadFile = async () => {
+    const uploadFile = async () => {
       try {
         setSuccess(false);
         setLoading(true);
         const formData = new FormData();
         formData.append("file", file);
-        const API_URL = "http://localhost:8081/files";
-        const response = await axios.put(API_URL, formData, {
+        const API_URL = 'http://localhost:8081/files';
+        const response = await Axios.post(API_URL, formData, {
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
@@ -122,21 +123,19 @@ function Fileupload() {
       } catch (err) {
         alert(err.message);
       }
-    };*/
+    };
 
-    const uploadFile = (e) => { //e.preventDefault();
+    /*const uploadFile = (e) => { //e.preventDefault();
         setSuccess(false);
         setLoading(true);
-        const file = { file };
-        console.log(file);
-        fetch("http://localhost:8081/files", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(file)
-        }).then(() => {
-            console.log("New Plan added");
+        const File = { file };
+        console.log(File);
+        Axios.post('http://localhost:8081/imagepath', {
+            Email: email, Path: file.path
+        }).then((response) => {
+            console.log(response);
         })
-    }
+    }*/
 
     return (
         <>
