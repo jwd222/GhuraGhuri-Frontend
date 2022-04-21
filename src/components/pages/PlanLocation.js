@@ -57,9 +57,9 @@ function PlanLocation() {
             console.log("New plan location added");
             console.log(planLocation);
             //console.log(locationname);
-            /*history.push({
+            history.push({
                 pathname: '/plandetails'
-            });*/
+            });
         })
     }
 

@@ -165,6 +165,21 @@ function Plandetails() {
           <br />
           <span><a href='/planlocation'>Add locations</a></span><br />
           <br />
+
+          <br />
+          <h3><u1>Locations</u1></h3>
+
+          <div>
+          {Object.entries(listOfPlanLocations).map(([values, key]) => {
+              return (
+                <div>
+                  <p>{key.locationName}</p>
+                </div>
+
+              )
+            })}
+          </div>
+
         </div>
       </div>
 
@@ -197,6 +212,9 @@ function Plandetails() {
 
           </Form>
 
+          <br />
+          <h3><u1>Notes</u1></h3>
+
           <div>
             {Object.entries(listOfNotes).map(([values, key]) => {
               return (
@@ -209,15 +227,6 @@ function Plandetails() {
 
         </div>
       </div>
-
-      {Object.entries(listOfPlanLocations).map(([values, key]) => {
-              return (
-                <div>
-                  <p>{key.name}</p>
-                </div>
-
-              )
-            })}
 
     </div>
   );
