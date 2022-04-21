@@ -11,7 +11,7 @@ function Home() {
   const history = createBrowserHistory({ forceRefresh: true });
   const [userid, setID] = useState("");
   const [listOfArticles, setArticle] = useState([]);
-  //const [listOfNotices, setNotices] = useState([]);
+  const [listOfPlaces, setPlace] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const like = 0;
@@ -221,6 +221,26 @@ function Home() {
         })}
         <br />
         <div><button className='morebtn' onClick={(e) => { history.push({ pathname: '/allarticles' }); }}>See more Articles</button></div>
+        <h1>Places Nearby</h1>
+        {listOfPlaces.map((values, key) => {
+          return (
+            <div className='cards__container_uni'>
+              <div className='cards__wrapper'>
+                <ul className='cards__items_uni'
+                  onClick={() => {
+                    localStorage.setItem('articleID', values.id);
+                  }}>
+                  <CardItem
+                    src={values.imageURL}
+                    text={values.title}
+                    label='Article_preview'
+                    path='/articledetails' />
+                </ul>
+              </div>
+            </div>
+          )
+        })}
+        <br />
       </div>
     </div>
   )
