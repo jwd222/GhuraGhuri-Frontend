@@ -83,32 +83,20 @@ function Home() {
   function success(pos) {
       setCurrentLat(pos.coords.latitude);
       setCurrentLng(pos.coords.longitude);
-     /*  console.log(`${crd.latitude}`);
-      console.log(`${crd.longitude}`);      
-      console.log('Your current position is:');
-      console.log(`Latitude : ${crd.latitude}`);
-      console.log(`Longitude: ${crd.longitude}`);       
-      console.log(`More or less ${crd.accuracy} meters.`); */
   }
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
 
   navigator.geolocation.getCurrentPosition(success, error, options);
-  console.log(`Currennt latitude is: ${currentLat}`);
+  /* console.log(`Currennt latitude is: ${currentLat}`);
   console.log(`Currennt longitude is: ${currentLng}`);
-
-  const pinCoordinates = pinData.map((result)=>({ 
-    latitude: result.lat,
-    longitude: result.lng,
-  }));
-
-  console.log(pinCoordinates[0])
-
-  // const distanceFromPoint = calculateDistance(currentLat, currentLng, pinData[0].lat, pinData[0].lng);
-  // console.log(distanceFromPoint);
+  console.log(pinData) */
+  const data = pinData.map(coordinates => {
+    return calculateDistance(currentLat, currentLng, coordinates.lat, coordinates.lng);
+  })
+  console.log(data)
   
-
   const getTopArticle = () => {
     fetch('http://localhost:8081/article/getTopArticles', {
     }).then(response => response.json())
