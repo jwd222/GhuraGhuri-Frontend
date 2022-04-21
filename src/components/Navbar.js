@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
+import { createBrowserHistory } from 'history';
 import './Navbar.css'
 
 function Navbar() {
+    const history = createBrowserHistory({forceRefresh:true});
     const [click, setClick] = useState(false);
     const [button, setButton] = useState(true);
 
@@ -33,7 +35,9 @@ function Navbar() {
                     </div>
                     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                         <li className='nav-item'>
-                        <Link to='/myplans' className='nav-links' onClick={closeMobileMenu}>Plan</Link>
+                        {localStorage.getItem("currentID") === '' ?
+                                (<Link to='/login' className='nav-links' onClick={closeMobileMenu}>Plan</Link>) :
+                                (<Link to='/myplans' className='nav-links' onClick={closeMobileMenu}>Plan</Link>)}
                         </li>
                         <li className='nav-item'>
                             <Link to='/discover' className='nav-links' onClick={closeMobileMenu}>Discover</Link>
@@ -42,7 +46,9 @@ function Navbar() {
                             <Link to='/aboutus' className='nav-links' onClick={closeMobileMenu}>About Us</Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu}>Log In</Link>
+                        {localStorage.getItem("currentID") === '' ?
+                                (<Link to='/login' className='nav-links' onClick={closeMobileMenu}>Home</Link>) :
+                                (<Link to='/home' className='nav-links' onClick={closeMobileMenu}>Home</Link>)}
                         </li>
                     </ul>
                     {button && <Button buttonStyle='btn--outline'

@@ -17,9 +17,10 @@ import AllArticle from './components/pages/AllArticle';
 import ArticleDetails from './components/pages/ArticleDetails';
 import MyArticles from './components/pages/MyArticles';
 import MyArticleDetails from './components/pages/MyArticleDetails';
+import AboutUs from './components/pages/AboutUs';
 
 function App() {
-  const history = createBrowserHistory();
+  const history = createBrowserHistory({forceRefresh:true});
   return (
     <>
     <Router history={history}>
@@ -34,6 +35,7 @@ function App() {
         <Route path='/profile' component={Profile}/>
         <Route path='/myplans' component={Myplans}/>
         <Route path='/addplan' component={Addplan}/>
+        <Route path='/aboutus' component={AboutUs}/>
         <Route path='/plandetails' component={Plandetails}/>
         <Route path='/allarticles' component={AllArticle}/>
         <Route path='/myarticles' component={MyArticles}/>

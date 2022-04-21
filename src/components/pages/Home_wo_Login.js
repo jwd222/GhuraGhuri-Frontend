@@ -1,21 +1,26 @@
 import React from 'react'
 import '../../App.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardItem from '../CardItem'
 import HeroSection from '../HeroSection'
 import { Link, useHistory } from "react-router-dom";
 
 function Home_wo_Login() {
-    const [listOfTrending, setTrending] = useState([]);
+  const [listOfArticles, setArticle] = useState([]);
     let history = useHistory();
 
-    /*const getTrending = () => {
-        Axios.post('http://localhost:3001/getTrending', {
-        }).then((response) => {
-          setNotices(response.data);
-          //console(response.data);
+    const getTopArticle = () => {
+      fetch('http://localhost:8081/article/getTopArticles', {
+      }).then(response => response.json())
+        .then(data => {
+          setArticle(data);
+          console.log(data);
         })
-      };*/
+    };
+
+    useEffect(() => {
+      getTopArticle();
+    }, []);
   return (
     <>
     <div>
@@ -23,19 +28,19 @@ function Home_wo_Login() {
     </div>
       <div className="homebody">
         <h1>Trending</h1>
-        {listOfTrending.map((values, key) => {
+        {listOfArticles.map((values, key) => {
           return (
             <div className='cards__container_uni'>
               <div className='cards__wrapper'>
                 <ul className='cards__items_uni'
                   onClick={() => {
-                   /* localStorage.setItem('noticeID', values.ID);*/
+                    localStorage.setItem('articleID', values.id);
                   }}>
                   <CardItem
-                    /*src={values.imageURL}
-                    text={values.Title}
-                    label='Post_Image'
-                   /* path='/noticedetails' *//>
+                    src={values.imageURL}
+                    text={values.title}
+                    label='Article_preview'
+                    path='/articledetails' />
                 </ul>
               </div>
             </div>
