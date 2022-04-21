@@ -14,7 +14,7 @@ export default function validateInfoSignUp(values) {
     if (!values.password) {
       errors.password = 'Please enter a password';
     } else if (values.password.length < 6) {
-      errors.password = 'Password needs to be 6at least of 6 characters';
+      errors.password = 'Password needs to be at least of 6 characters';
     }
   
     if (!values.password2) {

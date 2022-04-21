@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import { createBrowserHistory } from 'history';
+import { NavLink } from "react-router-dom";
 import './Navbar.css'
 
 function Navbar() {
@@ -29,26 +30,26 @@ function Navbar() {
         <>
             <nav className="navbar">
                 <div className="navbar-container">
-                    <Link to="/" className="navbar-name" onClick={closeMobileMenu}>GhuraGhuri</Link>
+                    <a href="/" className="navbar-name" onClick={closeMobileMenu}>GhuraGhuri</a>
                     <div className='menu-icon' onClick={handleClick}>
                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
                     </div>
                     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                         <li className='nav-item'>
                         {localStorage.getItem("currentID") === '' ?
-                                (<Link to='/login' className='nav-links' onClick={closeMobileMenu}>Plan</Link>) :
-                                (<Link to='/myplans' className='nav-links' onClick={closeMobileMenu}>Plan</Link>)}
+                                (<a href='/login' className='nav-links' onClick={closeMobileMenu}>Plan</a>) :
+                                (<a href='/myplans' className='nav-links' onClick={closeMobileMenu}>Plan</a>)}
                         </li>
                         <li className='nav-item'>
-                            <Link to='/discover' className='nav-links' onClick={closeMobileMenu}>Discover</Link>
+                            <a href='/discover' className='nav-links' onClick={closeMobileMenu}>Discover</a>
                         </li>
                         <li className='nav-item'>
-                            <Link to='/aboutus' className='nav-links' onClick={closeMobileMenu}>About Us</Link>
+                            <a href='/aboutus' className='nav-links' onClick={closeMobileMenu}>About Us</a>
                         </li>
                         <li className='nav-item'>
                         {localStorage.getItem("currentID") === '' ?
-                                (<Link to='/login' className='nav-links' onClick={closeMobileMenu}>Home</Link>) :
-                                (<Link to='/home' className='nav-links' onClick={closeMobileMenu}>Home</Link>)}
+                                (<a href='/login' className='nav-links' onClick={closeMobileMenu}>Home</a>) :
+                                (<a href='/home' className='nav-links' onClick={closeMobileMenu}>Home</a>)}
                         </li>
                     </ul>
                     {button && <Button buttonStyle='btn--outline'

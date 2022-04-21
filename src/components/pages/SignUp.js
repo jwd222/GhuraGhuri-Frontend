@@ -4,10 +4,12 @@ import { useState } from "react";
 import useSignUpForm from '../useSignUpForm'
 import validateInfoSignUp from '../validateInfoSignUp';
 import './SignUp.css'
+import { createBrowserHistory } from 'history';
 import { Link } from 'react-router-dom';
 
 
 function SignUp() {
+    const history = createBrowserHistory({forceRefresh:true});
     const { handleChange, values, handleSubmit, errors } = useSignUpForm(validateInfoSignUp);
     const [name, setUserName] = useState("");
     const [email, setUserMail] = useState("");
@@ -22,7 +24,13 @@ function SignUp() {
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(user)
-        }).then(()=>{console.log("New User added")})
+        }).then(()=>{console.log("New User added");
+        history.push({
+            pathname: '/login',
+            state :{
+            data: 'New account has been created.'
+          }});}
+        )
 
     }
    
@@ -31,6 +39,7 @@ function SignUp() {
         <div className='container'>
             <div className='signup-content'>
                 <form action='/' method="POST" className='signupform' onSubmit={(e) => { 
+                    handleSubmit(e); 
                     addUser(e);
                     }}>
                     <h1>

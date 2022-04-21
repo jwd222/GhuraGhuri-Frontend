@@ -98,10 +98,10 @@ function Home() {
     <div className='HomeContainer'>
       <div className="header">
         <div className="leftside">
-          <span ><Link to={{ pathname: "/myplans" }}>My Plans</Link></span><br /><br />
-          <span ><Link to={{ pathname: "/myarticles" }}>My Posts</Link></span><br /><br />
-          <span ><Link to={{ pathname: "/profile" }}>Profile</Link></span><br /><br />
-          <span ><Link to={{ pathname: "/map" }}>Add Place</Link></span>
+           <span ><a href='/myplans'> My Plans</a></span><br /><br />
+           <span ><a href='/myarticles'> My Posts</a></span><br /><br />
+           <span ><a href='/profile'> Profile</a></span><br /><br />
+          <span ><a href='/map'>Add Place</a></span>
           <span > <button onClick={toggleModal} className="btn-modal">
             Log Out
           </button></span>
