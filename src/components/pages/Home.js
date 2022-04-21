@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { createBrowserHistory } from 'history';
 import CardItem from '../CardItem'
+import axios from 'axios';
 
 
 function Home() {
@@ -17,13 +18,23 @@ function Home() {
   const dislike = 0;
   const imageURL = "";
   const [modal, setModal] = useState(false);
+  const [pins, setPins] = useState([]);
+  const getPins = async () => {
+    try {
+      const allPins = await axios.get("http://localhost:8081/location/getAll");
+      setPins(allPins.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     setID(localStorage.getItem('currentID'));
     getTopArticle();
+    getPins();
 
   }, []);
-
+  console.log(pins[0]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -47,23 +58,22 @@ function Home() {
     })
   }
 
-    //get default browser location
-    var opt = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0,
-    };
-    function success(pos) {
-        var crd = pos.coords;
-        console.log('Your current position is:');
-        console.log(`Latitude : ${crd.latitude}`);
-        console.log(`Longitude: ${crd.longitude}`);
-        console.log(`More or less ${crd.accuracy} meters.`);
-    }
-    function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
-    navigator.geolocation.getCurrentPosition(success, error, opt);
+  //get default browser location
+  var opt = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+  };
+  function success(pos) {
+      var crd = pos.coords;
+      console.log('Your current position is:');
+      console.log(`Latitude : ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);        console.log(`More or less ${crd.accuracy} meters.`);
+  }
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+  navigator.geolocation.getCurrentPosition(success, error, opt);
   
 
   const getTopArticle = () => {
