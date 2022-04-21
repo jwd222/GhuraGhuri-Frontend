@@ -261,7 +261,7 @@ function Discover() {
                         <div className='cards__wrapper' >
                             <ul className='cards__items_loc'
                                 onClick={() => {
-                                     localStorage.setItem('locationID', values.id);
+                                     localStorage.setItem('locationID', key.id);
                                 }}>
                                 <CardItem
                                     src={key.imageURL}

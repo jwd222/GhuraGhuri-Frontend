@@ -229,13 +229,13 @@ function Home() {
               <div className='cards__wrapper'>
                 <ul className='cards__items_uni'
                   onClick={() => {
-                    localStorage.setItem('articleID', places.id);
+                    localStorage.setItem('locationID', places.id);
                   }}>
                   <CardItem
                     src={places.imageURL}
                     text={places.name}
-                    label='Article_preview'
-                    path='/articledetails' />
+                    label='location_preview'
+                    path='/locationdetails' />
                 </ul>
               </div>
             </div>
