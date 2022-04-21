@@ -24,7 +24,7 @@ function Map(){
   const [division, setDivision] = useState(null);
   const [type, setType] = useState(null);
   const [star, setStar] = useState(0);
-  const imageURL = "";
+  const [imageURL, setImageURL] = useState(null);
   const [viewState, setViewState] = useState({
       latitude:  23.777,
       longitude: 90.399,
@@ -57,7 +57,39 @@ function Map(){
       console.log(err);
     }
   };
+
+  const addImageURLbasedOnType = (t) => {
+    if(t=="Historic"){
+      setImageURL("https://www.remotelands.com/remotenew1/dist/images/itinerary/b170621013.jpg%22");
+    }
+    else if(t=="Beach"){
+      setImageURL("https://portalsbd.com/wp-content/uploads/2018/11/Coxs-Bazar-Photo-1.jpg%22");
+    }
+    else if(t=="Mountain"){
+      setImageURL("https://dailyasianage.com/library/2019/12/28/1577565314_3.jpg%22");
+    }
+    else if(t=="Amusement"){
+      setImageURL("https://www.touristplaces.com.bd/images/pp/5/p112422.jpg%22");
+    }
+    else if(t=="Restaurant"){
+      setImageURL("https://en.resto.be/across/resources/static/bc1603807c668add1145e9aa1c08e0b5fd10ac73/site/images/placeholder-detail-resto-1.jpg%22");
+    }
+    else if(t=="Hotel"){
+      setImageURL("https://dailyasianage.com/library/2018/09/13/1536852615_2.jpg%22");
+    }
+    else if(t=="Forest"){
+      setImageURL("https://dailyasianage.com/library/1619679223_9.jpg%22");
+    }
+    else if(t=="Park"){
+      setImageURL("https://dailyasianage.com/library/2017/12/29/1514570638_1.jpg%22");
+    }
+    else {
+      setImageURL("https://www.xda-developers.com/files/2019/03/GPS-location.png%22");
+    }
+  };
+
   const handleSubmit = async (e) => {
+    addImageURLbasedOnType(type);
     const newPin = {
         username,
         description,
