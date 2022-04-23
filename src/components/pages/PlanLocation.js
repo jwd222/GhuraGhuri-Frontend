@@ -83,9 +83,9 @@ function PlanLocation() {
             </div>
             {Object.entries(listOfLocation).map(([values, key]) => {
                 return (
-                    <div className='cards__container_uni'>
-                        <div className='cards__wrapper'>
-                            <ul className='cards__items_uni'
+                    <div className='cards__container_location'>
+                        <div className='cards__wrapper' >
+                            <ul className='cards__items_loc'
                                 onClick={() => {
                                     localStorage.setItem('planLocationId', key.id);
                                     localStorage.setItem('planLocationName', key.name);

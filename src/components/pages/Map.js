@@ -59,37 +59,38 @@ function Map(){
   };
 
   const addImageURLbasedOnType = (t) => {
-    if(t==="Historic"){
+    if(t==='Historic'){
       setImageURL("https://www.remotelands.com/remotenew1/dist/images/itinerary/b170621013.jpg");
     }
-    else if(t==="Beach"){
+    else if(t==='Beach'){
       setImageURL("https://portalsbd.com/wp-content/uploads/2018/11/Coxs-Bazar-Photo-1.jpg");
     }
-    else if(t==="Mountain"){
+    else if(t==='Mountain'){
       setImageURL("https://dailyasianage.com/library/2019/12/28/1577565314_3.jpg");
     }
-    else if(t==="Amusement"){
+    else if(t==='Amusement'){
       setImageURL("https://www.touristplaces.com.bd/images/pp/5/p112422.jpg");
     }
-    else if(t==="Restaurant"){
+    else if(t==='Restaurant'){
       setImageURL("https://en.resto.be/across/resources/static/bc1603807c668add1145e9aa1c08e0b5fd10ac73/site/images/placeholder-detail-resto-1.jpg");
     }
-    else if(t==="Hotel"){
+    else if(t==='Hotel'){
       setImageURL("https://dailyasianage.com/library/2018/09/13/1536852615_2.jpg");
     }
-    else if(t==="Forest"){
+    else if(t==='Forest'){
       setImageURL("https://dailyasianage.com/library/1619679223_9.jpg");
     }
-    else if(t==="Park"){
+    else if(t==='Park'){
       setImageURL("https://dailyasianage.com/library/2017/12/29/1514570638_1.jpg");
     }
     else {
-      setImageURL("https://www.xda-developers.com/files/2019/03/GPS-location.png");
+      setImageURL('https://www.xda-developers.com/files/2019/03/GPS-location.png');
     }
   };
 
   const handleSubmit = async (e) => {
-    addImageURLbasedOnType(type);
+    e.preventDefault();
+    console.log(imageURL);
     const newPin = {
         username,
         description,
@@ -106,6 +107,8 @@ function Map(){
       const res = await axios.post("http://localhost:8081/location/add", newPin);
       setPins([...pins, res.data]);
       setNewPlace(null);
+      console.log(newPin);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -239,7 +242,7 @@ function Map(){
                   <option value='Rangpur'>Rangpur</option>
                 </select>
                 <label>Type</label>
-                <select onChange={(e) => setType(e.target.value)}>
+                <select onChange={(e) => {setType(e.target.value);addImageURLbasedOnType(type);}}>
                   <option value='Choose Type'>Choose Type</option>
                   <option value='Historic'>Historic Place</option>
                   <option value='Beach'>Beach</option>

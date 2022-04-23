@@ -31,15 +31,15 @@ function Home() {
   };
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371e3; // metres
-    const φ1 = lat1 * Math.PI/180; // φ, λ in radians
-    const φ2 = lat2 * Math.PI/180;
-    const Δφ = (lat2-lat1) * Math.PI/180;
-    const Δλ = (lon2-lon1) * Math.PI/180;
+    const φ1 = lat1 * Math.PI / 180; // φ, λ in radians
+    const φ2 = lat2 * Math.PI / 180;
+    const Δφ = (lat2 - lat1) * Math.PI / 180;
+    const Δλ = (lon2 - lon1) * Math.PI / 180;
 
-    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-              Math.cos(φ1) * Math.cos(φ2) *
-              Math.sin(Δλ/2) * Math.sin(Δλ/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+      Math.cos(φ1) * Math.cos(φ2) *
+      Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     const d = R * c; // in metres
     return d;
@@ -51,17 +51,17 @@ function Home() {
     getPinData();
   }, []);
 
-/* 
-  const data = pinData.map(coordinate => ({
-    id: coordinate.id,
-    distnace: calculateDistance(currentLat, currentLng, coordinate.lat, coordinate.lng)
-  }));
-  console.log(data) */
+  /* 
+    const data = pinData.map(coordinate => ({
+      id: coordinate.id,
+      distnace: calculateDistance(currentLat, currentLng, coordinate.lat, coordinate.lng)
+    }));
+    console.log(data) */
 
   useEffect(() => {
     setListOfPlaces(pinData.filter(coordinate => {
-    // console.log("useEffect", pinData, listOfPlaces)
-      return calculateDistance(currentLat, currentLng, coordinate.lat, coordinate.lng) <= 5000
+      // console.log("useEffect", pinData, listOfPlaces)
+      return calculateDistance(currentLat, currentLng, coordinate.lat, coordinate.lng) <= 10000
     }))
   }, [pinData]);
 
@@ -92,13 +92,13 @@ function Home() {
 
   //get default browser location
   const options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
   };
   function success(pos) {
-      setCurrentLat(pos.coords.latitude);
-      setCurrentLng(pos.coords.longitude);
+    setCurrentLat(pos.coords.latitude);
+    setCurrentLng(pos.coords.longitude);
   }
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -108,8 +108,8 @@ function Home() {
   /* console.log(`Currennt latitude is: ${currentLat}`);
   console.log(`Currennt longitude is: ${currentLng}`);
   console.log(pinData) */
-  
-  
+
+
   const getTopArticle = () => {
     fetch('http://localhost:8081/article/getTopArticles', {
     }).then(response => response.json())
@@ -141,9 +141,9 @@ function Home() {
     <div className='HomeContainer'>
       <div className="header">
         <div className="leftside">
-           <span ><a href='/myplans'> My Plans</a></span><br /><br />
-           <span ><a href='/myarticles'> My Posts</a></span><br /><br />
-           <span ><a href='/profile'> Profile</a></span><br /><br />
+          <span ><a href='/myplans'> My Plans</a></span><br /><br />
+          <span ><a href='/myarticles'> My Posts</a></span><br /><br />
+          <span ><a href='/profile'> Profile</a></span><br /><br />
           <span ><a href='/map'>Add Place</a></span>
           <span > <button onClick={toggleModal} className="btn-modal">
             Log Out
@@ -203,8 +203,8 @@ function Home() {
         <h1>Recent Articles</h1>
         {listOfArticles.map((values, key) => {
           return (
-            <div className='cardscontainer_location'>
-              <div className='cardswrapper' >
+            <div className='cards__container_location'>
+              <div className='cards__wrapper' >
                 <ul className='cards__items_loc'
                   onClick={() => {
                     localStorage.setItem('articleID', values.id);
@@ -225,8 +225,8 @@ function Home() {
         {listOfPlaces.map((places, key) => {
           console.log("From article", places)
           return (
-            <div className='cardscontainer_location'>
-              <div className='cardswrapper' >
+            <div className='cards__container_location'>
+              <div className='cards__wrapper' >
                 <ul className='cards__items_loc'
                   onClick={() => {
                     localStorage.setItem('locationID', places.id);

@@ -7,32 +7,32 @@ import { Link, useHistory } from "react-router-dom";
 
 function Home_wo_Login() {
   const [listOfArticles, setArticle] = useState([]);
-    let history = useHistory();
+  let history = useHistory();
 
-    const getTopArticle = () => {
-      fetch('http://localhost:8081/article/getTopArticles', {
-      }).then(response => response.json())
-        .then(data => {
-          setArticle(data);
-          console.log(data);
-        })
-    };
+  const getTopArticle = () => {
+    fetch('http://localhost:8081/article/getTopArticles', {
+    }).then(response => response.json())
+      .then(data => {
+        setArticle(data);
+        console.log(data);
+      })
+  };
 
-    useEffect(() => {
-      getTopArticle();
-    }, []);
+  useEffect(() => {
+    getTopArticle();
+  }, []);
   return (
     <>
-    <div>
-    <HeroSection/>
-    </div>
+      <div>
+        <HeroSection />
+      </div>
       <div className="homebody">
         <h1>Trending</h1>
         {listOfArticles.map((values, key) => {
           return (
-            <div className='cards__container_uni'>
-              <div className='cards__wrapper'>
-                <ul className='cards__items_uni'
+            <div className='cards__container_location'>
+              <div className='cards__wrapper' >
+                <ul className='cards__items_loc'
                   onClick={() => {
                     localStorage.setItem('articleID', values.id);
                   }}>
